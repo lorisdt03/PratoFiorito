@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Prato Fiorito</string>
+    <string name="todo">TODO</string>
+    <string name="facile">FACILE</string>
+    <string name="normale">NORMALE</string>
+    <string name="difficile">DIFFICILE</string>
+    <string name="reset">Reset</string>
+    <string name="sconfitta">Hai perso</string>
+    <string name="vittoria">Hai vinto</string>
+    <string name="ranking">Classifica</string>
+    <string name="go_back">Indietro</string>
+    <string name="difficulty">Difficoltà</string>
+    <string name="time">Tempo</string>
+    <string name="score">Punteggio</string>
+    <string name="salva">Invio</string>
+    <string name="tempo">Tempo</string>
+    <string name="punti">Punti</string>
+    <string name="nome">Inserire nome</string>
+    <string name="name">Nome</string>
+</resources>
