@@ -19,10 +19,15 @@ public class MyImages {
     private final Drawable button;
     private final Drawable bomb;
     private final Drawable border;
-    private final static int B_SIZE = 35;
+    private final int B_SIZE;
 
     //creo tutte le immagini che mi serviranno all'interno del programma
     MyImages(Context context){
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        B_SIZE = size.x/11;
         numbers[0] = scaleDrawable(context, R.drawable.empty);
         numbers[1] = scaleDrawable(context, R.drawable.n1);
         numbers[2] = scaleDrawable(context, R.drawable.n2);
