@@ -6,10 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ScaleDrawable;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.widget.ImageButton;
 
 import androidx.appcompat.content.res.AppCompatResources;
 
@@ -54,10 +51,6 @@ public class MyImages {
         Bitmap bMap = BitmapFactory.decodeResource(context.getResources(), id);
         Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, size, size, true);
         return  new BitmapDrawable(context.getResources(), bMapScaled);
-        /*
-        Drawable d = AppCompatResources.getDrawable(context,id);
-        int size = getButtonSize();
-        return  new ScaleDrawable(d, 0, size, size).getDrawable();*/
     }
     //restituisco la dimensione in px dei bottoni
     public int getButtonSize(){
