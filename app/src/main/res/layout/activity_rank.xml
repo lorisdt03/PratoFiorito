@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RankActivity">
+    tools:context=".RankActivity"
+    android:background="@drawable/backgroud_grass">
 
     <TableLayout
         android:id="@+id/rank_layout"
@@ -24,7 +25,8 @@
             android:id="@+id/titoli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
 
             <TextView
                 android:id="@+id/score"

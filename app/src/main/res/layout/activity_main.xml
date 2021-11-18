@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/backgroud_grass">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -17,10 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/flower"
-        tools:ignore="ImageContrastCheck"
-        tools:srcCompat="@drawable/flower" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
         android:id="@+id/b_easy"

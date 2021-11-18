@@ -184,11 +184,10 @@ public class Campo {
         Button reset = ga.findViewById(R.id.reset);
         reset.setText(R.string.sconfitta);
     }
-
+    //imposta l'oggetto alle coordinate [x,y] come premuto
     private void setPressed(int x, int y) {
         matPressed[x][y] = 1;
     }
-
     //ottengo la posizione dall'id e richiamo il metodo per rimpiazziare dalle coordinate
     public void replaceElement(int id){
         int [] pos = getButtonCoordinates(id);
@@ -274,7 +273,6 @@ public class Campo {
         placedFlags = countFlags();
         numberFlags();
     }
-
     //posiziono una flag sul bottone con id B_id
     public void placeFlag(int B_id) {
         ImageButton b = getButton(B_id);
@@ -292,15 +290,14 @@ public class Campo {
         }
         numberFlags();
     }
-
+    //imposta il bottone in posizione [x,y] come non premuto
     private void setNotPressed(int x, int y) {
         matPressed[x][y]=0;
     }
-
+    //imposta il bottone in posizione [x,y] come bandierina
     private void setFlag(int x, int y) {
         matPressed[x][y]=-1;
     }
-
     //conto il numero di bandierine che sono piazzate sul campo
     private int countFlags() {
         int cont=0;
