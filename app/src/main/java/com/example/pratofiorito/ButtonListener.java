@@ -2,21 +2,17 @@ package com.example.pratofiorito;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 
 public class ButtonListener implements View.OnClickListener {
 
     private final Campo c;
-    private final ImageButton[][] b;
     private final GameActivity ga;
-    private final MyImages mi;
     private final Chronometer chr;
 
     ButtonListener(Campo c){
         this.c=c;
         ga = c.getContext();
-        b = c.getB();
-        mi = c.getMi();
+
         chr = new Chronometer();
         //alla generazione del campo starto un cronometro che servirà a determinare la lunghezza della partita
         chr.start();
@@ -69,23 +65,22 @@ public class ButtonListener implements View.OnClickListener {
     private boolean winController() {
         for(int i=0;i<Campo.DIM;i++){
             for(int j=0;j<Campo.DIM;j++){
-                //Log.d("LoopVittoria","i "+i+" j "+j);
-                Log.d(" winCon","i "+i+" j "+j +" button? "+mi.isButton(b[i][j]));
-                if((mi.isButton(b[i][j]) || mi.isFlag(b[i][j])) && c.getMatBombe()[i][j]!=-1)
+                //DA FIXARE
+                if((c.isNotPressed(i,j) || c.isFlag(i,j)) && !c.isBomb(i,j)){
                     return false;
+                }
             }
         }
         return true;
     }
     //rimpiazzio il bottone che è stato premuto (con id = B_id) con l'immagine corrispondente
     public void replacePressed(int B_id) {
-        ImageButton b = c.getButton(B_id);
-        if(!mi.isFlag(b)){
-            c.replaceElement(B_id);
-            if(mi.isBomb(b)){
+        int [] pos = c.getButtonCoordinates(B_id);
+        if(!c.isFlag(pos[0],pos[1])){
+            if(c.isBomb(pos[0],pos[1])){
                 lose();
-            }else if(mi.isEmpty(b)){
-                c.replaceNearEmpty(B_id);
+            }else{
+                c.replaceElement(B_id);
             }
         }
     }

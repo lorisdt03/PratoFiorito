@@ -18,6 +18,7 @@ public class Campo {
     private boolean gameEnded;
     private final MyImages mi;
     private int placedFlags;
+    private final int [][]matPressed;
     public static final int DIM = 10;
     public static final int EASY = 10;
     public static final int NORMAL = 15;
@@ -28,12 +29,22 @@ public class Campo {
         this.layout = layout;
         this.ga =ga;
         mi = new MyImages(ga);
+        matPressed = new int[DIM][DIM];
         difficulty=diff;
         gameEnded = false;
         placedFlags = 0;
         numberFlags();
         createButtons();
         generaBombe();
+        fillMatPressed();
+    }
+    //riempio la matrice marPressed di 0
+    private void fillMatPressed() {
+        for(int i = 0;i<DIM;i++){
+            for(int j = 0;j<DIM;j++){
+                matPressed[i][j]=0;
+            }
+        }
     }
     //genera una matrice (matBombe) di posizione DIM*DIM
     //con una quantità di bombe difficulty in posizioni casuali
@@ -56,6 +67,14 @@ public class Campo {
     //restituisce se alle cordinate [x,y] c'è una bomba
     public boolean isBomb(int x, int y){
         return matBombe[x][y]==-1;
+    }
+    //restituisco se l'oggetto in posizione [x,y] sia stato premuto
+    public boolean isNotPressed(int x, int y){
+        return matPressed[x][y] != 1;
+    }
+    //restituisco se l'oggetto in posizione [x,y] sia una bandierina
+    public boolean isFlag(int x, int y){
+        return matPressed[x][y] == -1;
     }
     //dalla matrice di bombe matBombe viene generato il campo
     //ovvero di fianco alle bombe vengono inseriti i numeri
@@ -107,7 +126,6 @@ public class Campo {
                 b[i][j] = new ImageButton(ga);
                 b[i][j].setId(k++);
                 b[i][j].setImageDrawable(mi.getButton());
-                Log.d("Create button",""+b[i][j].getWidth());
                 row.addView(b[i][j],size,size);
                 b[i][j].setOnClickListener(bl);
             }
@@ -115,10 +133,6 @@ public class Campo {
             row.setGravity(Gravity.CENTER);
         }
 
-    }
-    //restituisco la matrice di bottoni
-    public ImageButton[][] getB() {
-        return b;
     }
     //restituisco il context attuale (GameActivity)
     public GameActivity getContext() {
@@ -131,10 +145,6 @@ public class Campo {
         } else {
             return (doubles(dim - 1, v1, v2, e1, e2) || (e1 == v1[dim] && e2 == v2[dim]));
         }
-    }
-    //restituisco la matrice contenente tutti i dati del campo
-    public int[][] getMatBombe() {
-        return matBombe;
     }
     //restituisco la difficoltà
     public int getDifficulty(){
@@ -163,10 +173,10 @@ public class Campo {
     public void showField() {
         for(int i=0;i<Campo.DIM;i++){
             for(int j=0;j<Campo.DIM;j++){
-                if(mi.isButton(b[i][j])){
+                if(isButton(i,j)){
                     replaceElement(i,j);
                 }
-                else if(mi.isFlag(b[i][j]) && matBombe[i][j]!=-1){
+                else if(isFlag(i,j) && !isBomb(i,j)){
                     replaceWrongFlag(i,j);
                 }
             }
@@ -174,13 +184,24 @@ public class Campo {
         Button reset = ga.findViewById(R.id.reset);
         reset.setText(R.string.sconfitta);
     }
+
+    private void setPressed(int x, int y) {
+        matPressed[x][y] = 1;
+    }
+
     //ottengo la posizione dall'id e richiamo il metodo per rimpiazziare dalle coordinate
     public void replaceElement(int id){
         int [] pos = getButtonCoordinates(id);
-        replaceElement(pos[0],pos[1]);
+        if(isEmpty(pos[0],pos[1])){
+            replaceNearEmpty(id);
+        }else{
+            setPressed(pos[0],pos[1]);
+            replaceElement(pos[0],pos[1]);
+        }
     }
     //rimpiazzo un bottone in coordinate [i,j] con l'elemento corrispondente all'interno della matrice matBombe (Bomba o numero)
     public void replaceElement(int i, int j) {
+        setPressed(i,j);
         if(matBombe[i][j]==-1){
             b[i][j].setImageDrawable(mi.getBomb());
         }else{
@@ -209,67 +230,83 @@ public class Campo {
     //ottengo la posizione dall'id e richiamo il metodo per rimpiazzare gli elementi vuoti vicini
     public void replaceNearEmpty(int id){
         int [] pos = getButtonCoordinates(id);
-        activateNearEmpty(pos[0],pos[1],0);
+        activateNearEmpty(pos[0],pos[1]);
     }
     //sostituisco ricorsivamente gli elementi intorno a un bottone che corrisponde a un punto vuoto di matBombe
-    public void activateNearEmpty(int i, int j,int status) {
-            if((matBombe[i][j]==0 && mi.isButton(b[i][j])) || status ==0){
+    public void activateNearEmpty(int i, int j) {
+
+        if(isNotPressed(i,j) && isEmpty(i,j)){
                 replaceElement(i,j);
                 if(i+1<DIM){
-                    activateNearEmpty(i+1,j,1);
+                    activateNearEmpty(i+1,j);
                     replaceElement(i+1,j);
                     if(j+1<DIM){
-                        activateNearEmpty(i+1,j+1,1);
+                        activateNearEmpty(i+1,j+1);
                         replaceElement(i+1,j+1);
                     }
-                    if(j-1>0){
-                        activateNearEmpty(i+1,j-1,1);
+                    if(j-1>=0){
+                        activateNearEmpty(i+1,j-1);
                         replaceElement(i+1,j-1);
                     }
                 }
-                if(i-1>0){
-                    activateNearEmpty(i-1,j,1);
+                if(i-1>=0){
+                    activateNearEmpty(i-1,j);
                     replaceElement(i-1,j);
                     if(j+1<DIM){
-                        activateNearEmpty(i-1,j+1,1);
+                        activateNearEmpty(i-1,j+1);
                         replaceElement(i-1,j+1);
                     }
-                    if(j-1>0){
-                        activateNearEmpty(i-1,j-1,1);
+                    if(j-1>=0){
+                        activateNearEmpty(i-1,j-1);
                         replaceElement(i-1,j-1);
                     }
+                    Log.d("Replace","i "+i+" j "+j);
                 }
-                if(j-1>0){
-                    activateNearEmpty(i,j-1,1);
+                if(j-1>=0){
+                    activateNearEmpty(i,j-1);
                     replaceElement(i,j-1);
                 }
                 if(j+1<DIM){
-                    activateNearEmpty(i,j+1,1);
+                    activateNearEmpty(i,j+1);
                     replaceElement(i,j+1);
                 }
             }
         placedFlags = countFlags();
         numberFlags();
     }
+
     //posiziono una flag sul bottone con id B_id
     public void placeFlag(int B_id) {
         ImageButton b = getButton(B_id);
-        if(mi.isFlag(b)){
+        int[] pos = getButtonCoordinates(B_id);
+        if(isFlag(pos[0],pos[1])){
             placedFlags--;
+            setNotPressed(pos[0],pos[1]);
             b.setImageDrawable(mi.getButton());
         }
-        else if(mi.isButton(b) && placedFlags< difficulty){
+        else if(isButton(pos[0],pos[1]) && placedFlags< difficulty){
             placedFlags++;
+            setFlag(pos[0],pos[1]);
+
             b.setImageDrawable(mi.getFlag());
         }
         numberFlags();
     }
+
+    private void setNotPressed(int x, int y) {
+        matPressed[x][y]=0;
+    }
+
+    private void setFlag(int x, int y) {
+        matPressed[x][y]=-1;
+    }
+
     //conto il numero di bandierine che sono piazzate sul campo
     private int countFlags() {
         int cont=0;
         for(int i=0;i<Campo.DIM;i++){
             for(int j=0;j<Campo.DIM;j++){
-                if(mi.isFlag(b[i][j])){
+                if(isFlag(i,j)){
                     cont++;
                 }
             }
@@ -294,7 +331,12 @@ public class Campo {
         String s = Integer.toString(difficulty-placedFlags);
         t.setText(s);
     }
-    public MyImages getMi(){
-        return mi;
+
+    public boolean isEmpty(int x, int y){
+        return matBombe[x][y]==0;
+    }
+    //restituisco se un oggetto in posizione [x,y] è un bottone
+    public boolean isButton(int x, int y){
+        return (isNotPressed(x,y) && !isFlag(x,y));
     }
 }
