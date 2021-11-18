@@ -1,5 +1,6 @@
 package com.example.pratofiorito;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -15,7 +16,7 @@ public class ButtonListener implements View.OnClickListener {
         this.c=c;
         ga = c.getContext();
         b = c.getB();
-        mi = new MyImages(ga);
+        mi = c.getMi();
         chr = new Chronometer();
         //alla generazione del campo starto un cronometro che servirà a determinare la lunghezza della partita
         chr.start();
@@ -69,6 +70,7 @@ public class ButtonListener implements View.OnClickListener {
         for(int i=0;i<Campo.DIM;i++){
             for(int j=0;j<Campo.DIM;j++){
                 //Log.d("LoopVittoria","i "+i+" j "+j);
+                Log.d(" winCon","i "+i+" j "+j +" button? "+mi.isButton(b[i][j]));
                 if((mi.isButton(b[i][j]) || mi.isFlag(b[i][j])) && c.getMatBombe()[i][j]!=-1)
                     return false;
             }

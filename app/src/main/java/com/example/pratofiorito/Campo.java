@@ -1,5 +1,6 @@
 package com.example.pratofiorito;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -95,7 +96,7 @@ public class Campo {
     private void createButtons() {
         int k=0;
         MyImages mi = new MyImages(ga);
-        int size = mi.getButtonSize(ga);
+        int size = mi.getButtonSize();
         ButtonListener bl = new ButtonListener(this);
         layout.setGravity(Gravity.CENTER_HORIZONTAL);
         TableRow row;
@@ -106,6 +107,7 @@ public class Campo {
                 b[i][j] = new ImageButton(ga);
                 b[i][j].setId(k++);
                 b[i][j].setImageDrawable(mi.getButton());
+                Log.d("Create button",""+b[i][j].getWidth());
                 row.addView(b[i][j],size,size);
                 b[i][j].setOnClickListener(bl);
             }
@@ -292,5 +294,7 @@ public class Campo {
         String s = Integer.toString(difficulty-placedFlags);
         t.setText(s);
     }
-
+    public MyImages getMi(){
+        return mi;
+    }
 }

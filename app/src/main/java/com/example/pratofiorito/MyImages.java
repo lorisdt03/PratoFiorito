@@ -1,14 +1,21 @@
 package com.example.pratofiorito;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
+import android.os.Build;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Display;
+import android.view.WindowMetrics;
 import android.widget.ImageButton;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.content.res.AppCompatResources;
 
 public class MyImages {
@@ -22,12 +29,13 @@ public class MyImages {
     private final int B_SIZE;
 
     //creo tutte le immagini che mi serviranno all'interno del programma
-    MyImages(Context context){
 
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        B_SIZE = size.x/11;
+    MyImages(Context context){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        B_SIZE = displayMetrics.widthPixels/11;
+        Log.d("B_size",""+B_SIZE);
+
         numbers[0] = scaleDrawable(context, R.drawable.empty);
         numbers[1] = scaleDrawable(context, R.drawable.n1);
         numbers[2] = scaleDrawable(context, R.drawable.n2);
@@ -38,27 +46,35 @@ public class MyImages {
         numbers[7] = scaleDrawable(context, R.drawable.n7);
         numbers[8] = scaleDrawable(context, R.drawable.n8);
 
+
         flag = scaleDrawable(context, R.drawable.placeable_flag);
         wrongFlag = scaleDrawable(context, R.drawable.wrong_flag);
         button =  scaleDrawable(context, R.drawable.button);
         bomb = scaleDrawable(context, R.drawable.bomb);
         border = AppCompatResources.getDrawable(context,R.drawable.border);
+        Log.d("Bomb",""+bomb.getMinimumWidth());
     }
     //scalo l'oggeto drawable con id "id" alle dimensioni size*size
     private Drawable scaleDrawable(Context context, int id) {
+        /*
+            int size = getButtonSize();
+        Bitmap bMap = BitmapFactory.decodeResource(context.getResources(), id);
+        Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, size, size, true);
+        return  new BitmapDrawable(context.getResources(), bMapScaled);
+         */
         Drawable d = AppCompatResources.getDrawable(context,id);
-        int size = getButtonSize(context);
+        int size = getButtonSize();
         return  new ScaleDrawable(d, 0, size, size).getDrawable();
     }
     //restituisco la dimensione in px dei bottoni
-    public int getButtonSize(Context context){
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,B_SIZE,context.getResources().getDisplayMetrics());
+    public int getButtonSize(){
+        //return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,B_SIZE,context.getResources().getDisplayMetrics());
+        return B_SIZE;
+
     }
     //restituisco se 2 drawables siano identici o meno
     private boolean equals(Drawable d1, Drawable d2){
-        Bitmap b1 = ((BitmapDrawable)d1).getBitmap();
-        Bitmap b2 = ((BitmapDrawable)d2).getBitmap();
-        return b1.equals(b2);
+        return d1.getConstantState().equals(d2.getConstantState());
     }
     //restituisco se l'immagine del bottone b sia una bandierina
     public boolean isFlag(ImageButton b){
