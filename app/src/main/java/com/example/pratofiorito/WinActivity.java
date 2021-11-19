@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
@@ -30,6 +31,10 @@ public class WinActivity extends MyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_win);
+
+        ImageButton b = findViewById(R.id.audio_win);
+        gestisciAudio(b);
+
         ring = newRing(this,R.raw.win);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

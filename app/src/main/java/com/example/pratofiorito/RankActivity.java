@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -31,6 +32,10 @@ public class RankActivity extends MyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
+
+        ImageButton b = findViewById(R.id.audio_rank);
+        gestisciAudio(b);
+
         ring = newRing(this,R.raw.ranks);
         ll = findViewById(R.id.rank_layout);
         ll.setGravity(Gravity.CENTER_HORIZONTAL);

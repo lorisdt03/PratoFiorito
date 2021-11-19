@@ -81,6 +81,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainMenu"
+        android:soundEffectsEnabled="false"
         android:layout_width="159dp"
         android:layout_height="74dp"
         android:text="@string/go_back"
@@ -91,4 +92,23 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rank_layout" />
+
+    <ImageButton
+        android:id="@+id/audio_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="645dp"
+        android:background="#00000000"
+        android:contentDescription="@string/todo"
+        android:onClick="invertiAudio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/audio"
+        tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

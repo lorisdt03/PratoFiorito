@@ -24,6 +24,10 @@ public class GameActivity extends MyActivity {
         setContentView(R.layout.activity_campo);
         TableLayout layout = findViewById(R.id.Table);
         firstMove = true;
+
+        ImageButton b = findViewById(R.id.audio_game);
+        gestisciAudio(b);
+
         ring = newRing(this,R.raw.in_game);
         Bundle extras = getIntent().getExtras();
         switch (extras.getInt("diff")){

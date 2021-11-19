@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -17,8 +18,10 @@ public class MainActivity extends MyActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
 
-        ring = newRing(this,R.raw.main_menu);
+        ImageButton b = findViewById(R.id.audio_main);
+        gestisciAudio(b);
 
+        ring = newRing(this,R.raw.main_menu);
     }
     //quando viene premuto un bottone delle difficolta
     // imposto la difficolta di conseguenza e inizio l'attività del gioco
