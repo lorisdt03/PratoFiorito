@@ -10,7 +10,7 @@ public class MyActivity extends AppCompatActivity {
     //imposto che quando il gioco va in pausa la musica si fermi
     @Override
     protected void onPause() {
-        if(ring!=null){
+        if(ring.isPlaying()) {
             ring.pause();
         }
         super.onPause();
@@ -18,7 +18,7 @@ public class MyActivity extends AppCompatActivity {
     //imposto che quando il gioco si ferma la musica si fermi
     @Override
     protected void onStop() {
-        if(ring!=null){
+        if(ring.isPlaying()) {
             ring.pause();
         }
         super.onStop();
@@ -47,4 +47,5 @@ public class MyActivity extends AppCompatActivity {
         ring.start();
         return ring;
     }
+
 }
