@@ -71,11 +71,11 @@ public class MyData {
     public String getDifficultyStr(){
         switch (difficulty){
             case Campo.EASY:
-                return "EASY";
+                return "FACILE";
             case Campo.NORMAL:
-                return "NORMAL";
+                return "NORMALE";
             case Campo.HARD:
-                return "HARD";
+                return "DIFFICILE";
         }
         return null;
     }
