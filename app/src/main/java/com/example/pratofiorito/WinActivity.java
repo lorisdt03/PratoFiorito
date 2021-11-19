@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.content.res.AppCompatResources;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -44,6 +47,9 @@ public class WinActivity extends MyActivity {
     }
     //alla pressione del bottone "invio" salvo i dati e torno al menu principale
     public void onClick(View v){
+        int id = v.getId();
+        Button b = findViewById(id);
+        b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_small_pressed));
         String n = name.getText().toString();
         if(n.equals("")){
             gameData.setName("----------");

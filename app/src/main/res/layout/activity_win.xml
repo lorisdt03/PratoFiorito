@@ -4,60 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WinActivity"
-    android:background="@drawable/backgroud_grass">
-
-    <TextView
-        android:id="@+id/txt_vittoria"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="248dp"
-        android:text="@string/vittoria"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_tempo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:text="@string/tempo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.435" />
-
-    <TextView
-        android:id="@+id/txt_punti"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="100dp"
-        android:text="@string/punti"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.435" />
+    android:background="@drawable/backgroud_grass"
+    tools:context=".WinActivity">
 
     <TextView
         android:id="@+id/punti"
-        android:layout_width="0dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="276dp"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/score"
         android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="@dimen/big_text"
+        android:gravity="center"
+        android:paddingTop="50dp"
+        android:fontFamily="@font/seven_segment"
+        app:layout_constraintBottom_toTopOf="@+id/txt_tempo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+    <ImageView
+        android:id="@+id/txt_tempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/clock"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.399"
+        android:contentDescription="TODO" />
     <TextView
         android:id="@+id/tempo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginBottom="312dp"
         android:text=""
+        android:textSize="@dimen/big_text"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_tempo" />
 
     <TextView
         android:id="@+id/txt_nome"
@@ -65,6 +57,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="18dp"
         android:text="@string/nome"
+        android:textSize="@dimen/medium_text"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/nome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -75,9 +69,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
+        android:width="300dp"
+        android:textSize="@dimen/medium_text"
+        android:textAlignment="center"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
+        android:background="@color/white"
         android:text=""
         app:layout_constraintBottom_toTopOf="@+id/invio"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,13 +83,16 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/invio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="92dp"
         android:onClick="onClick"
         android:text="@string/salva"
+        android:width="200dp"
+        android:height="100dp"
+        android:background="@drawable/button_scaled_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

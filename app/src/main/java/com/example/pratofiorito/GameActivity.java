@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -53,6 +54,9 @@ public class GameActivity extends MyActivity {
     }
     //fermo la musica e torno al menu principale
     public void reset(View view) {
+        int id = view.getId();
+        Button b = findViewById(id);
+        b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_small_pressed));
         ring.stop();
         Intent i = new Intent(GameActivity.this, MainActivity.class);
         startActivity(i);

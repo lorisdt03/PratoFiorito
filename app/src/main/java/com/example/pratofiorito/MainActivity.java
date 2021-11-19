@@ -3,7 +3,10 @@ package com.example.pratofiorito;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.content.res.AppCompatResources;
 
 public class MainActivity extends MyActivity {
 
@@ -20,10 +23,13 @@ public class MainActivity extends MyActivity {
     //quando viene premuto un bottone delle difficolta
     // imposto la difficolta di conseguenza e inizio l'attività del gioco
     public void onClick(View view) {
+        int id = view.getId();
+        Button b = findViewById(id);
+        b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_pressed));
         int difficulty;
-        if(view.getId()==R.id.b_easy){
+        if(id==R.id.b_easy){
             difficulty = 0;
-        }else if(view.getId()==R.id.b_normal){
+        }else if(id==R.id.b_normal){
             difficulty = 1;
         }else {
             difficulty = 2;
@@ -37,6 +43,9 @@ public class MainActivity extends MyActivity {
     }
     //se viene premuto il bottone classifica apro la classifica
     public void ranks(View view) {
+        int id = view.getId();
+        Button b = findViewById(id);
+        b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_pressed));
         Intent i = new Intent(MainActivity.this, RankActivity.class);
         startActivity(i);
     }

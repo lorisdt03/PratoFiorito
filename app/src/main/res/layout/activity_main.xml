@@ -20,50 +20,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/b_easy"
         android:layout_width="146dp"
         android:layout_height="83dp"
         android:layout_marginBottom="56dp"
         android:onClick="onClick"
         android:text="@string/facile"
+        android:background="@drawable/button_scaled"
         app:layout_constraintBottom_toTopOf="@+id/b_normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/b_normal"
         android:layout_width="146dp"
         android:layout_height="83dp"
         android:layout_marginBottom="56dp"
         android:onClick="onClick"
         android:text="@string/normale"
+        android:background="@drawable/button_scaled"
         app:layout_constraintBottom_toTopOf="@+id/b_hard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/b_hard"
         android:layout_width="146dp"
         android:layout_height="83dp"
         android:layout_marginBottom="56dp"
         android:onClick="onClick"
         android:text="@string/difficile"
+        android:background="@drawable/button_scaled"
         app:layout_constraintBottom_toTopOf="@id/b_ranking"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/b_ranking"
         android:layout_width="146dp"
         android:layout_height="83dp"
         android:layout_marginBottom="56dp"
         android:onClick="ranks"
         android:text="@string/ranking"
+        android:background="@drawable/button_scaled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import androidx.appcompat.content.res.AppCompatResources;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -89,6 +92,9 @@ public class RankActivity extends MyActivity {
     }
     //fermo la musica e torno al menu principale
     public void goBack(View view) {
+        int id = view.getId();
+        Button b = findViewById(id);
+        b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_small_pressed));
         ring.stop();
         Intent i = new Intent(RankActivity.this, MainActivity.class);
         startActivity(i);

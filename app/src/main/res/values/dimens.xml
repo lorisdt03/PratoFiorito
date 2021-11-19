@@ -3,4 +3,6 @@
     <dimen name="flag_text">110dp</dimen>
     <dimen name="button_size">35dp</dimen>
     <dimen name="text_size">18dp</dimen>
+    <dimen name="big_text">50dp</dimen>
+    <dimen name="medium_text">30dp</dimen>
 </resources>
