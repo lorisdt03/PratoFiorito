@@ -125,6 +125,7 @@ public class Campo {
             for(int j = 0; j<10; j++){
                 b[i][j] = new ImageButton(ga);
                 b[i][j].setId(k++);
+                b[i][j].setSoundEffectsEnabled(false);
                 b[i][j].setImageDrawable(mi.getButton());
                 row.addView(b[i][j],size,size);
                 b[i][j].setOnClickListener(bl);
@@ -328,7 +329,7 @@ public class Campo {
         String s = Integer.toString(difficulty-placedFlags);
         t.setText(s);
     }
-
+    //restituisco se un oggetto in posizione [x,y] è uno spazio vuoto
     public boolean isEmpty(int x, int y){
         return matBombe[x][y]==0;
     }
