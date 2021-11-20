@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RankActivity"
-    android:background="@drawable/backgroud_grass">
+    android:background="@drawable/backgroud_grass"
+    tools:context=".RankActivity">
 
     <TableLayout
         android:id="@+id/rank_layout"
@@ -81,12 +81,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainMenu"
-        android:soundEffectsEnabled="false"
         android:layout_width="159dp"
         android:layout_height="74dp"
-        android:text="@string/go_back"
         android:background="@drawable/button_scaled_small"
         android:onClick="goBack"
+        android:soundEffectsEnabled="false"
+        android:text="@string/go_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -97,18 +97,17 @@
         android:id="@+id/audio_rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="39dp"
-        android:layout_marginBottom="645dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="50dp"
         android:background="#00000000"
         android:contentDescription="@string/todo"
         android:onClick="invertiAudio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.636"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/mainMenu"
+        app:layout_constraintTop_toBottomOf="@+id/rank_layout"
         app:srcCompat="@drawable/audio"
         tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

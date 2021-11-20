@@ -16,6 +16,7 @@
             android:exported="false" />
         <activity
             android:name=".RankActivity"
+            android:noHistory="false"
             android:exported="false" />
         <activity
             android:noHistory="false"
