@@ -82,9 +82,11 @@ public class WinActivity extends MyActivity {
                     finish();
                 }
             }
-        }catch (Exception e){}
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-        ArrayList<MyData> a = new ArrayList();
+        ArrayList<MyData> a = new ArrayList<>();
         loadRanks(a);
         a.add(gameData);
         a = sortData(a);
@@ -93,33 +95,31 @@ public class WinActivity extends MyActivity {
         writeRanks(a);
     }
     //carico i dati precedentemente salvati sul file myfile.txt
-    private void loadRanks(ArrayList a) {
+    private void loadRanks(ArrayList<MyData> a) {
         try {
-            BufferedReader r = new BufferedReader(new FileReader(getFilesDir()+"myfile.txt"));
-            try {
-                while(true){
-                    a.add(new MyData(r.readLine()));
-                }
-            }catch (Exception e){
+            BufferedReader br = new BufferedReader(new FileReader(getFilesDir()+"myfile.txt"));
+            String line;
+            while((line = br.readLine()) != null){
+                a.add(new MyData(line));
             }
-            r.close();
+            br.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     //riordino l'arraylist contenente la classifica
-    private ArrayList sortData(ArrayList a) {
+    private ArrayList<MyData> sortData(ArrayList<MyData> a) {
         int n_elem = Math.min(21,a.size());
         long [] scores= new long[n_elem];
         for(int i=0;i<n_elem;i++){
-            scores[i] = ((MyData)a.get(i)).getScore();
+            scores[i] = a.get(i).getScore();
         }
         Arrays.sort(scores);
         int attuale = 0;
         int searched = 0;
-        ArrayList a1 = new ArrayList();
+        ArrayList<MyData> a1 = new ArrayList<>();
         while(a.size()!=0){
-            if(((MyData)a.get(attuale)).getScore()==scores[searched]){
+            if(a.get(attuale).getScore()==scores[searched]){
                 a1.add(a.get(attuale));
                 a.remove(attuale);
                 searched++;
@@ -134,7 +134,7 @@ public class WinActivity extends MyActivity {
         return a1;
     }
     //salvo la classifica sul file myfile.txt
-    private void writeRanks(ArrayList a) {
+    private void writeRanks(ArrayList<MyData> a) {
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             try{

@@ -21,13 +21,13 @@ import java.util.Locale;
 
 public class RankActivity extends MyActivity {
 
-    private ArrayList a;
+    private ArrayList<MyData> a;
     private LinearLayout ll;
     private static final int COLUMNS = 4;
     private MediaPlayer ring;
     public static int DIM_LIST = 20;
 
-        //salvo il layout che userò per stampare il campo, carico la classifica, la stampo e starto la musica
+    //salvo il layout che userò per stampare il campo, carico la classifica, la stampo e starto la musica
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,26 +39,23 @@ public class RankActivity extends MyActivity {
         ring = newRing(this,R.raw.ranks);
         ll = findViewById(R.id.rank_layout);
         ll.setGravity(Gravity.CENTER_HORIZONTAL);
-        a = new ArrayList();
+        a = new ArrayList<>();
         loadRanks();
         printRanks();
-
     }
     //carico la classifica dal file chiamato myfile
     private void loadRanks() {
         try {
-            BufferedReader r = new BufferedReader(new FileReader(getFilesDir()+"myfile.txt"));
-            try {
-                while(true){
-                    a.add(new MyData(r.readLine()));
+            BufferedReader br = new BufferedReader(new FileReader(getFilesDir()+"myfile.txt"));
+            String line;
+                while((line = br.readLine()) != null){
+                    a.add(new MyData(line));
                 }
-            }catch (Exception e){
-            }
-            r.close();
+            br.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        //riempio gli spazzi vuoti con dei MyData default
         for(int i = a.size(); i< DIM_LIST; i++){
             a.add(new MyData());
         }
@@ -66,12 +63,11 @@ public class RankActivity extends MyActivity {
     //stampo a schermo la classifica
     private void printRanks() {
         for(int i = 0; i< DIM_LIST; i++){
-            ll.addView(addViews((MyData) a.get(i)));
+            ll.addView(addViews(a.get(i)));
         }
     }
     //restituisco una tablerow contenete una riga della classifica
     private TableRow addViews(MyData d) {
-
         TableRow l = new TableRow(this);
         l.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
         l.setGravity(Gravity.CENTER);
