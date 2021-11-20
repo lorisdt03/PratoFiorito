@@ -56,16 +56,32 @@ public class WinActivity extends MyActivity {
         int id = view.getId();
         Button b = findViewById(id);
         b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_small_pressed));
-        String n = name.getText().toString();
+        String n = getName(name.getText().toString());
         if(n.equals("")){
             gameData.setName("----------");
         }
         else{
-            gameData.setName(n.substring(0,Math.min(n.length(),10)));
+            gameData.setName(n);
         }
         saveRank();
         goBack();
     }
+    //restituisco il nome di lunghezza massimo 10 e senza spazi in fondo
+    private String getName(String n) {
+
+        if(n.charAt(0)==' '){
+            if(n.length()==1){
+                return "";
+            }
+            return getName(n.substring(1,n.length()-1));
+        }
+        if(n.charAt(n.length()-1)==' '){
+            return getName(n.substring(0,n.length()-1));
+        }
+        n = n.substring(0,Math.min(n.length(),10));
+        return n;
+    }
+
     //torno al menu principale
     private void goBack() {
         ring.stop();
