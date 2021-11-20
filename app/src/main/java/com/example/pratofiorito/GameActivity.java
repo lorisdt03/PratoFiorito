@@ -14,7 +14,7 @@ public class GameActivity extends MyActivity {
 
     private  boolean firstMove;
     public static boolean flag=false;
-    private Campo c;
+    private Field c;
     private MediaPlayer ring;
 
     //in base alla difficoltà che viene passata dalla MainActivity creo un campo di difficoltà diversa e starto la musica
@@ -26,19 +26,19 @@ public class GameActivity extends MyActivity {
         firstMove = true;
 
         ImageButton b = findViewById(R.id.audio_game);
-        gestisciAudio(b);
+        loadAudio(b);
 
         ring = newRing(this,R.raw.in_game);
         Bundle extras = getIntent().getExtras();
         switch (extras.getInt("diff")){
             case 0:
-                c = new Campo(layout, this, Campo.EASY);
+                c = new Field(layout, this, Field.EASY);
                 break;
             case 1:
-                c = new Campo(layout, this, Campo.NORMAL);
+                c = new Field(layout, this, Field.NORMAL);
                 break;
             case 2:
-                c = new Campo(layout, this, Campo.HARD);
+                c = new Field(layout, this, Field.HARD);
                 break;
         }
 

@@ -1,18 +1,16 @@
 package com.example.pratofiorito;
 
-import android.util.Log;
 import android.view.View;
 
 public class ButtonListener implements View.OnClickListener {
 
-    private final Campo c;
+    private final Field f;
     private final GameActivity ga;
     private final Chronometer chr;
 
-    ButtonListener(Campo c){
-        this.c=c;
-        ga = c.getContext();
-
+    ButtonListener(Field f){
+        this.f = f;
+        ga = f.getContext();
         chr = new Chronometer();
         //alla generazione del campo starto un cronometro che servirà a determinare la lunghezza della partita
         chr.start();
@@ -24,25 +22,25 @@ public class ButtonListener implements View.OnClickListener {
         //se è la prima mossa
         if(ga.isFirstMove() && !GameActivity.flag){
             ga.setNotFirstMove();
-            int [] pos = c.getButtonCoordinates(B_id);
+            int [] pos = f.getButtonCoordinates(B_id);
             //se ho premuto su una bomba la sposto
-            if(c.isBomb(pos[0],pos[1])){
-                c.moveBomb(pos[0],pos[1]);
+            if(f.isBomb(pos[0],pos[1])){
+                f.moveBomb(pos[0],pos[1]);
             }
             //genero il campo
-            c.bombsToField();
+            f.bombsToField();
         }
         //se la partita non è ancora finita
-        if(!c.isGameEnded()){
+        if(!f.isGameEnded()){
             //se il giocatore vuole rimuovere il tasto premuto
             if(!GameActivity.flag){
                 replacePressed(B_id);
             }//se il giocatore vuole piazzare una bandierina
             else{
-                c.placeFlag(B_id);
+                f.placeFlag(B_id);
             }
             //se le condizioni di vittoria si sono verificate eseguo il metodo win
-            if(winController() && !c.isGameEnded()){
+            if(winController() && !f.isGameEnded()){
                 win();
             }
         }
@@ -50,23 +48,22 @@ public class ButtonListener implements View.OnClickListener {
     //in caso di vittoria fermo il cronometro, genero i dato che potrebbero venir salvati e blocco i bottoni nel loro stato attuale
     private void win() {
         chr.stop();
-        MyData gameData = new MyData((long) chr.getSeconds(), c.getDifficulty());
-        c.endGame();
-        c.setNotClickable();
+        MyData gameData = new MyData((long) chr.getSeconds(), f.getDifficulty());
+        f.endGame();
+        f.setNotClickable();
         ga.win(gameData);
     }
     //in caso di sconfitta mostro tutto il campo e blocco i bottoni nel loro stato attuale
     private void lose() {
-        c.endGame();
-        c.setNotClickable();
-        c.showField();
+        f.endGame();
+        f.setNotClickable();
+        f.showField();
     }
     //controllo lo stato del campo per sapere se la partita è stata vinta o meno
     private boolean winController() {
-        for(int i=0;i<Campo.DIM;i++){
-            for(int j=0;j<Campo.DIM;j++){
-                //DA FIXARE
-                if((c.isNotPressed(i,j) || c.isFlag(i,j)) && !c.isBomb(i,j)){
+        for(int i = 0; i< Field.DIM; i++){
+            for(int j = 0; j< Field.DIM; j++){
+                if((f.isNotPressed(i,j) || f.isFlag(i,j)) && !f.isBomb(i,j)){
                     return false;
                 }
             }
@@ -75,12 +72,12 @@ public class ButtonListener implements View.OnClickListener {
     }
     //rimpiazzio il bottone che è stato premuto (con id = B_id) con l'immagine corrispondente
     public void replacePressed(int B_id) {
-        int [] pos = c.getButtonCoordinates(B_id);
-        if(!c.isFlag(pos[0],pos[1])){
-            if(c.isBomb(pos[0],pos[1])){
+        int [] pos = f.getButtonCoordinates(B_id);
+        if(!f.isFlag(pos[0],pos[1])){
+            if(f.isBomb(pos[0],pos[1])){
                 lose();
             }else{
-                c.replaceElement(B_id);
+                f.replaceElement(B_id);
             }
         }
     }

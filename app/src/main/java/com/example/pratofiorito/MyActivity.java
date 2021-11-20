@@ -2,7 +2,6 @@ package com.example.pratofiorito;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -51,8 +50,8 @@ public class MyActivity extends AppCompatActivity {
         }
     }
     //creo un nuovo lettore audio con come musica riprodotta id
-    public MediaPlayer newRing(Context cont, int id){
-        ring= MediaPlayer.create(cont, id);
+    public MediaPlayer newRing(Context context, int B_id){
+        ring= MediaPlayer.create(context, B_id);
         ring.setLooping(true);
         ring.start();
         if(!bool){
@@ -60,17 +59,15 @@ public class MyActivity extends AppCompatActivity {
         }
         return ring;
     }
-    public void invertiAudio(View v){
-        Log.d("Audio","invertendo");
-        int id = v.getId();
+    public void changeAudio(View view){
+        int id = view.getId();
         ImageButton b = findViewById(id);
-        setAudio(!leggiAudio(),b);
+        setAudio(!readAudio(),b);
     }
-    public void gestisciAudio(ImageButton b){
-        setAudio(leggiAudio(),b);
+    public void loadAudio(ImageButton b){
+        setAudio(readAudio(),b);
     }
     public void setAudio(boolean isActive, ImageButton b){
-        Log.d("Audio","audio = "+isActive);
         if(isActive){
             b.setImageDrawable(AppCompatResources.getDrawable(this,R.drawable.audio));
             b.setSoundEffectsEnabled(true);
@@ -85,15 +82,14 @@ public class MyActivity extends AppCompatActivity {
             }
         }
         bool = isActive;
-        scriviAudio(isActive);
+        writeAudio(isActive);
     }
-    public boolean leggiAudio(){
+    public boolean readAudio(){
         String filePath = getFilesDir()+"audio.txt";
         File my_file;
         try {
             my_file = new File(filePath);
             if(!my_file.exists()){
-                Log.d("Audio","Il file era inesistente");
                 if(!my_file.createNewFile()){
                     finish();
                 }
@@ -105,17 +101,14 @@ public class MyActivity extends AppCompatActivity {
             BufferedReader r = new BufferedReader(new FileReader(getFilesDir()+"audio.txt"));
             String s = r.readLine();
             r.close();
-            Log.d("Audio","1 leggendo = "+s);
             return Boolean.parseBoolean(s);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.d("Audio","leggendo errore ");
         return true;
     }
-    private void scriviAudio(boolean isActive) {
+    private void writeAudio(boolean isActive) {
         String filePath = getFilesDir()+"audio.txt";
-        Log.d("Audio","scrivendo = "+isActive);
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             try{

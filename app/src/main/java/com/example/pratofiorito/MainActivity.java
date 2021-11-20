@@ -19,7 +19,7 @@ public class MainActivity extends MyActivity {
         setContentView(R.layout.activity_main);
 
         ImageButton b = findViewById(R.id.audio_main);
-        gestisciAudio(b);
+        loadAudio(b);
 
         ring = newRing(this,R.raw.main_menu);
     }

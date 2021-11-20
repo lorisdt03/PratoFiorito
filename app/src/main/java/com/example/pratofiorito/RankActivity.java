@@ -34,7 +34,7 @@ public class RankActivity extends MyActivity {
         setContentView(R.layout.activity_rank);
 
         ImageButton b = findViewById(R.id.audio_rank);
-        gestisciAudio(b);
+        loadAudio(b);
 
         ring = newRing(this,R.raw.ranks);
         ll = findViewById(R.id.rank_layout);
@@ -106,14 +106,14 @@ public class RankActivity extends MyActivity {
     public void onBackPressed() {
         goBack(findViewById(R.id.mainMenu));
     }
-
+    //quando viene ripresa la schermata svuoto la classifica e la ririempio
     @Override
     protected void onRestart() {
         super.onRestart();
         removeRanks();
         printRanks();
     }
-
+    //svuoto la classifica
     private void removeRanks() {
         ll.removeViews(1,DIM_LIST);
     }

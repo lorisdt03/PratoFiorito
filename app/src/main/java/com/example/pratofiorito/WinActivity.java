@@ -26,6 +26,7 @@ public class WinActivity extends MyActivity {
     private EditText name;
     private MediaPlayer ring;
     private String filePath;
+
     //stampo a schermo tutti i dati della partita appena finita e starto la musica
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class WinActivity extends MyActivity {
         setContentView(R.layout.activity_win);
 
         ImageButton b = findViewById(R.id.audio_win);
-        gestisciAudio(b);
+        loadAudio(b);
 
         ring = newRing(this,R.raw.win);
         Bundle extras = getIntent().getExtras();
@@ -51,8 +52,8 @@ public class WinActivity extends MyActivity {
         filePath = getFilesDir()+"myfile.txt";
     }
     //alla pressione del bottone "invio" salvo i dati e torno al menu principale
-    public void onClick(View v){
-        int id = v.getId();
+    public void onClick(View view){
+        int id = view.getId();
         Button b = findViewById(id);
         b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_small_pressed));
         String n = name.getText().toString();

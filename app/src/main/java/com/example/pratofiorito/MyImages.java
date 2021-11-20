@@ -45,10 +45,10 @@ public class MyImages {
         border = AppCompatResources.getDrawable(context,R.drawable.border);
     }
     //scalo l'oggeto drawable con id "id" alle dimensioni size*size
-    private Drawable scaleDrawable(Context context, int id) {
+    private Drawable scaleDrawable(Context context, int B_id) {
 
             int size = getButtonSize();
-        Bitmap bMap = BitmapFactory.decodeResource(context.getResources(), id);
+        Bitmap bMap = BitmapFactory.decodeResource(context.getResources(), B_id);
         Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, size, size, true);
         return  new BitmapDrawable(context.getResources(), bMapScaled);
     }

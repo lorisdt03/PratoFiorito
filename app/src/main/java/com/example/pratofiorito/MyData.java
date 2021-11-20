@@ -70,18 +70,18 @@ public class MyData {
     //restituisco la stringa corrispondente a ogni difficoltà
     public String getDifficultyStr(){
         switch (difficulty){
-            case Campo.EASY:
+            case Field.EASY:
                 return "FACILE";
-            case Campo.NORMAL:
+            case Field.NORMAL:
                 return "NORMALE";
-            case Campo.HARD:
+            case Field.HARD:
                 return "DIFFICILE";
         }
         return null;
     }
     //imposto come nome il nome passato
-    public void setName(String n){
-        name = n;
+    public void setName(String name){
+        this.name = name;
     }
     //restituisco il nome
     public String getName(){

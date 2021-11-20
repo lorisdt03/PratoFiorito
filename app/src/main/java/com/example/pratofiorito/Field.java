@@ -1,6 +1,6 @@
 package com.example.pratofiorito;
 
-import android.util.Log;
+
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -8,7 +8,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class Campo {
+public class Field {
 
     private final ImageButton[][] b = new ImageButton[DIM][DIM];
     private final GameActivity ga;
@@ -25,7 +25,7 @@ public class Campo {
     public static final int HARD = 20;
 
     //creo i il campo di bottoni, genero la matrice contenente le bombe e stampo a schermo le bandierine piazzabili
-    Campo(TableLayout layout, GameActivity ga, int diff){
+    Field(TableLayout layout, GameActivity ga, int diff){
         this.layout = layout;
         this.ga =ga;
         mi = new MyImages(ga);
@@ -35,7 +35,7 @@ public class Campo {
         placedFlags = 0;
         numberFlags();
         createButtons();
-        generaBombe();
+        generateBombs();
         fillMatPressed();
     }
     //riempio la matrice marPressed di 0
@@ -48,7 +48,7 @@ public class Campo {
     }
     //genera una matrice (matBombe) di posizione DIM*DIM
     //con una quantità di bombe difficulty in posizioni casuali
-    private void generaBombe() {
+    private void generateBombs() {
         int[] I = new int[difficulty];
         int[] J = new int[difficulty];
         for (int i = 0; i < difficulty; i++) {
@@ -172,8 +172,8 @@ public class Campo {
     //sostituisco a tutti i bottoni che non sono ancora stati premuti i rispettivi valori numerici
     //e se le bandierine erano sbagliate le sostituisco con delle bandierine crociate
     public void showField() {
-        for(int i=0;i<Campo.DIM;i++){
-            for(int j=0;j<Campo.DIM;j++){
+        for(int i = 0; i< Field.DIM; i++){
+            for(int j = 0; j< Field.DIM; j++){
                 if(isButton(i,j)){
                     replaceElement(i,j);
                 }
@@ -190,22 +190,22 @@ public class Campo {
         matPressed[x][y] = 1;
     }
     //ottengo la posizione dall'id e richiamo il metodo per rimpiazziare dalle coordinate
-    public void replaceElement(int id){
-        int [] pos = getButtonCoordinates(id);
+    public void replaceElement(int B_id){
+        int [] pos = getButtonCoordinates(B_id);
         if(isEmpty(pos[0],pos[1])){
-            replaceNearEmpty(id);
+            replaceNearEmpty(B_id);
         }else{
             setPressed(pos[0],pos[1]);
             replaceElement(pos[0],pos[1]);
         }
     }
     //rimpiazzo un bottone in coordinate [i,j] con l'elemento corrispondente all'interno della matrice matBombe (Bomba o numero)
-    public void replaceElement(int i, int j) {
-        setPressed(i,j);
-        if(matBombe[i][j]==-1){
-            b[i][j].setImageDrawable(mi.getBomb());
+    public void replaceElement(int x, int y) {
+        setPressed(x,y);
+        if(matBombe[x][y]==-1){
+            b[x][y].setImageDrawable(mi.getBomb());
         }else{
-            b[i][j].setImageDrawable(mi.getNumber(matBombe[i][j]));
+            b[x][y].setImageDrawable(mi.getNumber(matBombe[x][y]));
         }
     }
     //ottengo le coordinate di un bottone dal suo id
@@ -228,47 +228,46 @@ public class Campo {
         return b[pos[0]][pos[1]];
     }
     //ottengo la posizione dall'id e richiamo il metodo per rimpiazzare gli elementi vuoti vicini
-    public void replaceNearEmpty(int id){
-        int [] pos = getButtonCoordinates(id);
+    public void replaceNearEmpty(int B_id){
+        int [] pos = getButtonCoordinates(B_id);
         activateNearEmpty(pos[0],pos[1]);
     }
     //sostituisco ricorsivamente gli elementi intorno a un bottone che corrisponde a un punto vuoto di matBombe
-    public void activateNearEmpty(int i, int j) {
+    public void activateNearEmpty(int x, int y) {
 
-        if(isNotPressed(i,j) && isEmpty(i,j)){
-                replaceElement(i,j);
-                if(i+1<DIM){
-                    activateNearEmpty(i+1,j);
-                    replaceElement(i+1,j);
-                    if(j+1<DIM){
-                        activateNearEmpty(i+1,j+1);
-                        replaceElement(i+1,j+1);
+        if(isNotPressed(x,y) && isEmpty(x,y)){
+                replaceElement(x,y);
+                if(x+1<DIM){
+                    activateNearEmpty(x+1,y);
+                    replaceElement(x+1,y);
+                    if(y+1<DIM){
+                        activateNearEmpty(x+1,y+1);
+                        replaceElement(x+1,y+1);
                     }
-                    if(j-1>=0){
-                        activateNearEmpty(i+1,j-1);
-                        replaceElement(i+1,j-1);
+                    if(y-1>=0){
+                        activateNearEmpty(x+1,y-1);
+                        replaceElement(x+1,y-1);
                     }
                 }
-                if(i-1>=0){
-                    activateNearEmpty(i-1,j);
-                    replaceElement(i-1,j);
-                    if(j+1<DIM){
-                        activateNearEmpty(i-1,j+1);
-                        replaceElement(i-1,j+1);
+                if(x-1>=0){
+                    activateNearEmpty(x-1,y);
+                    replaceElement(x-1,y);
+                    if(y+1<DIM){
+                        activateNearEmpty(x-1,y+1);
+                        replaceElement(x-1,y+1);
                     }
-                    if(j-1>=0){
-                        activateNearEmpty(i-1,j-1);
-                        replaceElement(i-1,j-1);
+                    if(y-1>=0){
+                        activateNearEmpty(x-1,y-1);
+                        replaceElement(x-1,y-1);
                     }
-                    Log.d("Replace","i "+i+" j "+j);
                 }
-                if(j-1>=0){
-                    activateNearEmpty(i,j-1);
-                    replaceElement(i,j-1);
+                if(y-1>=0){
+                    activateNearEmpty(x,y-1);
+                    replaceElement(x,y-1);
                 }
-                if(j+1<DIM){
-                    activateNearEmpty(i,j+1);
-                    replaceElement(i,j+1);
+                if(y+1<DIM){
+                    activateNearEmpty(x,y+1);
+                    replaceElement(x,y+1);
                 }
             }
         placedFlags = countFlags();
@@ -302,8 +301,8 @@ public class Campo {
     //conto il numero di bandierine che sono piazzate sul campo
     private int countFlags() {
         int cont=0;
-        for(int i=0;i<Campo.DIM;i++){
-            for(int j=0;j<Campo.DIM;j++){
+        for(int i = 0; i< Field.DIM; i++){
+            for(int j = 0; j< Field.DIM; j++){
                 if(isFlag(i,j)){
                     cont++;
                 }
@@ -312,13 +311,13 @@ public class Campo {
         return cont;
     }
     //rimpiazzo la bandierina in posizione [i,j] con una bandierina crociata
-    private void replaceWrongFlag(int i, int j) {
-        b[i][j].setImageDrawable(mi.getWrongFlag());
+    private void replaceWrongFlag(int x, int y) {
+        b[x][y].setImageDrawable(mi.getWrongFlag());
     }
     //rendo non cliccabile la matrice il campo
     public void setNotClickable() {
-        for(int i= 0;i<Campo.DIM;i++){
-            for(int j= 0;j<Campo.DIM;j++){
+        for(int i = 0; i< Field.DIM; i++){
+            for(int j = 0; j< Field.DIM; j++){
                 b[i][j].setClickable(false);
             }
         }
