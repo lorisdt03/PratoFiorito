@@ -110,4 +110,15 @@ public class RankActivity extends MyActivity {
     public void onBackPressed() {
         goBack(findViewById(R.id.mainMenu));
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        removeRanks();
+        printRanks();
+    }
+
+    private void removeRanks() {
+        ll.removeViews(1,DIM_LIST);
+    }
 }
