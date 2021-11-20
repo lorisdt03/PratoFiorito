@@ -78,8 +78,10 @@ public class WinActivity extends MyActivity {
         if(n.charAt(n.length()-1)==' '){
             return getName(n.substring(0,n.length()-1));
         }
-        n = n.substring(0,Math.min(n.length(),10));
-        return n;
+        final String nSubstring = n.substring(0, Math.min(n.length(), 10));
+        if(n.equals(nSubstring))
+            return n;
+        return getName(nSubstring);
     }
 
     //torno al menu principale
