@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.pratofiorito">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -12,30 +15,36 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PratoFiorito">
         <activity
+            android:name=".MainActivity"
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".WinActivity"
             android:exported="false" />
         <activity
             android:name=".RankActivity"
-            android:noHistory="false"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="false" />
         <activity
-            android:noHistory="false"
             android:name=".GameActivity"
             android:exported="false"
+            android:noHistory="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MenuActivity"
+            android:exported="false"
             android:noHistory="false"
-            android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            tools:ignore="LockedOrientationActivity"/>
     </application>
 
 </manifest>

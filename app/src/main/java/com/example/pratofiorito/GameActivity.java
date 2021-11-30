@@ -62,7 +62,7 @@ public class GameActivity extends MyActivity {
         Button b = findViewById(id);
         b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_small_pressed));
         ring.stop();
-        Intent i = new Intent(GameActivity.this, MainActivity.class);
+        Intent i = new Intent(GameActivity.this, MenuActivity.class);
         startActivity(i);
         finish();
     }

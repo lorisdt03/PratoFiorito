@@ -17,4 +17,9 @@
     <string name="punti">Punti</string>
     <string name="nome">Inserire nome</string>
     <string name="name">Nome</string>
+    <string name="registrati">Registrati</string>
+    <string name="accedi">Accedi</string>
+    <string name="password">password</string>
+    <string name="offline">Gioca offline</string>
+    <string name="online">Gioca online</string>
 </resources>

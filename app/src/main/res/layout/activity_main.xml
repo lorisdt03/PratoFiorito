@@ -7,98 +7,31 @@
     tools:context=".MainActivity"
     android:background="@drawable/backgroud_grass">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <Button
+        android:id="@+id/online"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="80dp"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/flower"
-        app:layout_constraintBottom_toTopOf="@+id/b_easy"
+        android:layout_marginTop="245dp"
+        android:text="@string/online"
+        android:background="@drawable/button_scaled_small"
+        android:onClick="playOnline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/b_easy"
-        android:soundEffectsEnabled="false"
-        android:layout_width="146dp"
-        android:layout_height="83dp"
-        android:layout_marginBottom="56dp"
-        android:background="@drawable/button_scaled"
-        android:onClick="onClick"
-        android:text="@string/facile"
-        app:layout_constraintBottom_toTopOf="@+id/b_normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/b_normal"
-        android:soundEffectsEnabled="false"
-        android:layout_width="146dp"
-        android:layout_height="83dp"
-        android:layout_marginBottom="56dp"
-        android:background="@drawable/button_scaled"
-        android:onClick="onClick"
-        android:text="@string/normale"
-        app:layout_constraintBottom_toTopOf="@+id/b_hard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TextContrastCheck" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/b_hard"
-        android:soundEffectsEnabled="false"
-        android:layout_width="146dp"
-        android:layout_height="83dp"
-        android:layout_marginBottom="56dp"
-        android:background="@drawable/button_scaled"
-        android:onClick="onClick"
-        android:text="@string/difficile"
-        app:layout_constraintBottom_toTopOf="@id/b_ranking"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TextContrastCheck" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/b_ranking"
-        android:soundEffectsEnabled="false"
-        android:layout_width="146dp"
-        android:layout_height="83dp"
-        android:layout_marginBottom="56dp"
-        android:background="@drawable/button_scaled"
-        android:onClick="ranks"
-        android:text="@string/ranking"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TextContrastCheck" />
-
-    <ImageButton
-        android:id="@+id/audio_main"
+    <Button
+        android:id="@+id/offline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="39dp"
-        android:layout_marginBottom="645dp"
-        android:background="#00000000"
-        android:contentDescription="@string/todo"
-        android:onClick="changeAudio"
+        android:layout_marginTop="192dp"
+        android:layout_marginBottom="198dp"
+        android:text="@string/offline"
+        android:onClick="playOffline"
+        android:background="@drawable/button_scaled_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.636"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/audio"
-        tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
-
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/online" />
 </androidx.constraintlayout.widget.ConstraintLayout>

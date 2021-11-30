@@ -1,63 +1,56 @@
 package com.example.pratofiorito;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.content.res.AppCompatResources;
+import java.io.File;
 
-public class MainActivity extends MyActivity {
-
-    //starto la musica
+public class MainActivity extends AppCompatActivity {
+    public static boolean online;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
-
-        ImageButton b = findViewById(R.id.audio_main);
-        loadAudio(b);
-
-        ring = newRing(this,R.raw.main_menu);
     }
-    //quando viene premuto un bottone delle difficolta
-    // imposto la difficolta di conseguenza e inizio l'attività del gioco
-    public void onClick(View view) {
-        int id = view.getId();
-        Button b = findViewById(id);
-        b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_pressed));
-        int difficulty;
-        if(id==R.id.b_easy){
-            difficulty = 0;
-        }else if(id==R.id.b_normal){
-            difficulty = 1;
-        }else {
-            difficulty = 2;
+
+    private boolean logged() {
+        File f = new File(getFilesDir()+"user.txt");
+        return f.exists();
+    }
+
+
+    public boolean internetIsConnected() {
+        return true;
+    }
+
+    public void playOnline(View view) {
+        if(!internetIsConnected()){
+            Toast.makeText(getBaseContext(), "Errore! Controllare la connessione", Toast.LENGTH_SHORT).show();
+            return;
         }
-        ring.pause();
-        Intent i = new Intent(MainActivity.this, GameActivity.class);
-        i.putExtra("diff", difficulty);
-        startActivity(i);
-        GameActivity.flag=false;
+        online = true;
+        if(logged()){
+            Intent i = new Intent(MainActivity.this, MenuActivity.class);
+            startActivity(i);
+        }else{
+            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(i);
+        }
+        finish();
+    }
 
-    }
-    //se viene premuto il bottone classifica apro la classifica
-    public void ranks(View view) {
-        int id = view.getId();
-        Button b = findViewById(id);
-        b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_pressed));
-        Intent i = new Intent(MainActivity.this, RankActivity.class);
+    public void playOffline(View view) {
+        online = false;
+        Intent i = new Intent(MainActivity.this, MenuActivity.class);
         startActivity(i);
-    }
-    //se premo indietro termino il programma
-    public void onBackPressed() {
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
-        startMain.addCategory(Intent.CATEGORY_HOME);
-        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(startMain);
-        android.os.Process.killProcess(android.os.Process.myPid());
+        finish();
     }
 }

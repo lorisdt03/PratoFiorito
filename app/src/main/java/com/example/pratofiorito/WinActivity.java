@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -36,6 +38,7 @@ public class WinActivity extends MyActivity {
         ImageButton b = findViewById(R.id.audio_win);
         loadAudio(b);
 
+
         ring = newRing(this,R.raw.win);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -48,24 +51,68 @@ public class WinActivity extends MyActivity {
         score.setText(gameData.getScoreStr());
         time.setText(gameData.getTimeStr());
         name = findViewById(R.id.nome);
-        name.setOnEditorActionListener(new EnterListener(this));
+
+        if(MainActivity.online){
+            TextView nome = findViewById(R.id.txt_nome);
+            nome.setText(onlineName());
+            name.setVisibility(View.INVISIBLE);
+        }
+        else{
+            name.setOnEditorActionListener(new EnterListener(this));
+        }
+
         filePath = getFilesDir()+"myfile.txt";
     }
+
+    private String onlineName() {
+        String filePath = getFilesDir()+"user.txt";
+        File my_file;
+        try {
+            my_file = new File(filePath);
+            if(!my_file.exists()){
+                if(!my_file.createNewFile()){
+                    finish();
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader r = new BufferedReader(new FileReader(getFilesDir()+"user.txt"));
+            String s = r.readLine();
+            r.close();
+            return s;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "ERRORE";
+    }
+
     //alla pressione del bottone "invio" salvo i dati e torno al menu principale
     public void onClick(View view){
         int id = view.getId();
         Button b = findViewById(id);
         b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_small_pressed));
-        String n = getName(name.getText().toString());
-        if(n.equals("")){
-            gameData.setName("----------");
+        if(MainActivity.online){
+            gameData.setName(onlineName());
+            saveRankOnline();
+        }else{
+            String n = getName(name.getText().toString());
+            if(n.equals("")){
+                gameData.setName("----------");
+            }
+            else{
+                gameData.setName(n);
+            }
+            saveRank();
         }
-        else{
-            gameData.setName(n);
-        }
-        saveRank();
         goBack();
     }
+
+    private void saveRankOnline() {
+
+    }
+
     //restituisco il nome di lunghezza massimo 10 e senza spazi in fondo
     private String getName(String n) {
 
@@ -87,7 +134,7 @@ public class WinActivity extends MyActivity {
     //torno al menu principale
     private void goBack() {
         ring.stop();
-        Intent i = new Intent(WinActivity.this, MainActivity.class);
+        Intent i = new Intent(WinActivity.this, MenuActivity.class);
         startActivity(i);
         finish();
     }
