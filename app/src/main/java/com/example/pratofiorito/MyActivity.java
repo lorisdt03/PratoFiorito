@@ -50,8 +50,9 @@ public class MyActivity extends AppCompatActivity {
         }
     }
     //creo un nuovo lettore audio con come musica riprodotta id
-    public MediaPlayer newRing(Context context, int B_id){
-        ring= MediaPlayer.create(context, B_id);
+    public MediaPlayer newRing(Context context, int Music_id){
+        ring= MediaPlayer.create(context, Music_id);
+
         ring.setLooping(true);
         ring.start();
         if(!bool){
