@@ -31,7 +31,12 @@ public class MyData {
         }catch (Exception e){
             name = "----------";
         }
-
+        score = score();
+    }
+    MyData(String name, int difficulty, int time){
+        this.time = time;
+        this.difficulty = difficulty;
+        this.name = name;
         score = score();
     }
     //restituisco una versione convertita a stringa di un oggetto d tipo MyData

@@ -3,9 +3,11 @@ package com.example.pratofiorito;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -17,13 +19,15 @@ import androidx.appcompat.content.res.AppCompatResources;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Locale;
 
 public class RankActivity extends MyActivity {
 
     private ArrayList<MyData> a;
     private LinearLayout ll;
-    private static final int COLUMNS = 4;
+    public static final int COLUMNS = 4;
     private MediaPlayer ring;
     public static int DIM_LIST = 20;
 
@@ -37,11 +41,48 @@ public class RankActivity extends MyActivity {
         loadAudio(b);
 
         ring = newRing(this,R.raw.ranks);
+
         ll = findViewById(R.id.rank_layout);
         ll.setGravity(Gravity.CENTER_HORIZONTAL);
+
         a = new ArrayList<>();
-        loadRanks();
-        printRanks();
+        if(MainActivity.online){
+            DAOMyData dao = new DAOMyData();
+            dao.printRanks(this);
+            Log.d("ONCREATE","SCARICATIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+        }else{
+            loadRanks();
+            printRanks();
+        }
+
+    }
+
+
+    //riordino l'arraylist contenente la classifica
+    private ArrayList<MyData> sortData(ArrayList<MyData> a) {
+        int n_elem = Math.min(21,a.size());
+        long [] scores= new long[n_elem];
+        for(int i=0;i<n_elem;i++){
+            scores[i] = a.get(i).getScore();
+        }
+        Arrays.sort(scores);
+        int attuale = 0;
+        int searched = 0;
+        ArrayList<MyData> a1 = new ArrayList<>();
+        while(a.size()!=0){
+            if(a.get(attuale).getScore()==scores[searched]){
+                a1.add(a.get(attuale));
+                a.remove(attuale);
+                searched++;
+                attuale=0;
+            }
+            else{
+                attuale++;
+            }
+
+        }
+        Collections.reverse(a1);
+        return a1;
     }
     //carico la classifica dal file chiamato myfile
     private void loadRanks() {
@@ -59,10 +100,12 @@ public class RankActivity extends MyActivity {
         for(int i = a.size(); i< DIM_LIST; i++){
             a.add(new MyData());
         }
+        a = sortData(a);
     }
     //stampo a schermo la classifica
     private void printRanks() {
-        for(int i = 0; i< DIM_LIST; i++){
+        for(int i = 0; i< Math.min(DIM_LIST,a.size()); i++){
+            Log.d("IIIIIIIIIIIIIIIIIIIIIIIIIIIIII","I = "+i);
             ll.addView(addViews(a.get(i)));
         }
     }
@@ -95,7 +138,7 @@ public class RankActivity extends MyActivity {
     public void goBack(View view) {
         int id = view.getId();
         Button b = findViewById(id);
-        b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_small_pressed));
+        b.setBackground(AppCompatResources.getDrawable(this, R.drawable.button_scaled_small_pressed));
         ring.stop();
         Intent i = new Intent(RankActivity.this, MenuActivity.class);
         startActivity(i);

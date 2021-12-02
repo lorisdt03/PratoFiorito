@@ -3,6 +3,7 @@ package com.example.pratofiorito;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +38,6 @@ public class WinActivity extends MyActivity {
 
         ImageButton b = findViewById(R.id.audio_win);
         loadAudio(b);
-
 
         ring = newRing(this,R.raw.win);
         Bundle extras = getIntent().getExtras();
@@ -89,6 +89,12 @@ public class WinActivity extends MyActivity {
     }
 
     //alla pressione del bottone "invio" salvo i dati e torno al menu principale
+    private void saveRankOnline() {
+        DAOMyData dao = new DAOMyData();
+        dao.add(gameData);
+        Log.d("SAVE","FInito di salvare");
+    }
+
     public void onClick(View view){
         int id = view.getId();
         Button b = findViewById(id);
@@ -107,10 +113,6 @@ public class WinActivity extends MyActivity {
             saveRank();
         }
         goBack();
-    }
-
-    private void saveRankOnline() {
-
     }
 
     //restituisco il nome di lunghezza massimo 10 e senza spazi in fondo
