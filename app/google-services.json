@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "204812810713",
+    "firebase_url": "https://prato-fiorito-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "prato-fiorito",
+    "storage_bucket": "prato-fiorito.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204812810713:android:47b9b71d6cede94811c1c8",
+        "android_client_info": {
+          "package_name": "com.example.pratofiorito"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204812810713-pmvee20vu7hu7e242nhi4a50704rc4qi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVJGhR5_qF75tkIZgIdgHs3M_z_DjutbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204812810713-pmvee20vu7hu7e242nhi4a50704rc4qi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

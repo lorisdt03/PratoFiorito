@@ -2,6 +2,7 @@ package com.example.pratofiorito;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,28 +12,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class LoginActivity extends AppCompatActivity {
     //String ConnectionResult;
-    TextView user;
+    TextView username;
     TextView password;
-    Connection conn;
+    DAOUser dao;
+    User u;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        user = findViewById(R.id.uname);
+
+        dao = new DAOUser();
+        username = findViewById(R.id.uname);
         password = findViewById(R.id.password);
-        conn =new ConnectionHelper().connectionClass();
     }
 
     @Override
     public void onBackPressed() {}
 
     public void login(View view) {
-        if(userExist()){
+        setUser();
+        if(dao.userExist(u)){
+            if(!u.getPassword().equals(dao.getPassword(u.getName()))){
+                Toast.makeText(getBaseContext(), "Utente e password non corrispondono", Toast.LENGTH_SHORT).show();
+                return;
+            }
             saveUser();
             nextPage();
         }else{
@@ -41,8 +47,15 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void setUser() {
+        String name = username.getText().toString();
+        String pass = password.getText().toString();
+        u= new User(name,pass);
+    }
+
     public void register(View view) {
-        if(!userExist()){
+        setUser();
+        if(!dao.userExist(u)){
             createUser();
             saveUser();
             nextPage();
@@ -58,16 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void createUser() {
-        String query= "insert into user ()"+" values()";
-        String name = user.getText().toString();
-        String pass = password.getText().toString();
-        try {
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setString (1, name);
-            preparedStmt.setString (2, pass);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        dao.add(u);
     }
 
     private void saveUser() {
@@ -75,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             try{
-                String nome = user.getText().toString();
+                String nome = username.getText().toString();
                 writer.write(nome);
             }catch (Exception e){
                 e.printStackTrace();
@@ -86,20 +90,4 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private boolean userExist() {
-        return false;
-        /*
-        String name = user.getText().toString();
-        try{
-            PreparedStatement ps =
-                    conn.prepareStatement("SELECT questid FROM completedQuests WHERE characterid = ? AND questid = ?");
-            ps.setInt (1, name);
-            ps.setInt (2, questId);
-            ResultSet rs = ps.executeQuery();
-            return rs.next();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return false;*/
-        }
 }

@@ -101,4 +101,19 @@
         app:srcCompat="@drawable/audio"
         tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 
+    <Button
+        android:id="@+id/logOut"
+        android:layout_width="120dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="45dp"
+        android:background="@drawable/log_out"
+        android:onClick="logOut"
+        app:layout_constraintBottom_toTopOf="@+id/b_easy"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

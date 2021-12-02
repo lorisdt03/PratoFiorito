@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 
+import java.io.File;
+
 public class MenuActivity extends MyActivity {
 
     //starto la musica
@@ -24,12 +26,10 @@ public class MenuActivity extends MyActivity {
         loadAudio(b);
 
         ring = newRing(this,R.raw.main_menu);
-    }
-
-    private void startLogin() {
-        //starto una login activity
-        Intent i = new Intent(MenuActivity.this, LoginActivity.class);
-        startActivity(i);
+        if(!MainActivity.online){
+            Button logOut = findViewById(R.id.logOut);
+            logOut.setVisibility(View.INVISIBLE);
+        }
     }
 
     //quando viene premuto un bottone delle difficolta
@@ -68,5 +68,13 @@ public class MenuActivity extends MyActivity {
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
         android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
+    public void logOut(View view) {
+        File f = new File(getFilesDir()+"user.txt");
+        f.delete();
+        Intent i = new Intent(MenuActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 }
