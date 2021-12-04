@@ -14,7 +14,6 @@ import java.io.FileWriter;
 import java.sql.Connection;
 
 public class LoginActivity extends AppCompatActivity {
-    //String ConnectionResult;
     TextView username;
     TextView password;
     DAOUser dao;
@@ -34,6 +33,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login(View view) {
         setUser();
+        if(!validUser()){
+            return;
+        }
         if(dao.userExist(u)){
             if(!u.getPassword().equals(dao.getPassword(u.getName()))){
                 Toast.makeText(getBaseContext(), "Utente e password non corrispondono", Toast.LENGTH_SHORT).show();
@@ -55,6 +57,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void register(View view) {
         setUser();
+        if(!validUser()){
+            return;
+        }
+
         if(!dao.userExist(u)){
             createUser();
             saveUser();
@@ -62,6 +68,28 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             Toast.makeText(getBaseContext(), "Utente già registrato", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean validUser() {
+        return validName() && validPassword();
+    }
+
+    private boolean validName() {
+        if(u.getName().length()>2 && u.getName().length()<13){
+            username.setError(null);
+            return true;
+        }
+        username.setError("Nome non valido");
+        return false;
+    }
+
+    private boolean validPassword() {
+        if(u.getPassword().length()>2 && u.getPassword().length()<10){
+            password.setError(null);
+            return true;
+        }
+        password.setError("Password non valida");
+        return false;
     }
 
     private void nextPage() {
