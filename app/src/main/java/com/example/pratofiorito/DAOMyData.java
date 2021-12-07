@@ -1,18 +1,12 @@
 package com.example.pratofiorito;
 
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
+import java.util.Objects;
 
 public class DAOMyData {
     private final FirebaseFirestore db;
@@ -37,27 +31,22 @@ public class DAOMyData {
         db.collection("Records").document().set(data);
     }
 
-    public ArrayList<MyData> get(){
-
-        return a;
-    }
-
     public void printRanks(RankActivity ra) {
         this.ra=ra;
         a = new ArrayList<>();
-        Task<QuerySnapshot> t = FirebaseFirestore.getInstance()
+        FirebaseFirestore.getInstance()
                 .collection("Records")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
+                        List<DocumentSnapshot> myListOfDocuments = Objects.requireNonNull(task.getResult()).getDocuments();
                         for(int i=0;i<myListOfDocuments.size();i++){
                             Map<String,Object> m = myListOfDocuments.get(i).getData();
+                            assert m != null;
                             String name = (String)m.get("uname");
-                            int difficulty=((Long)m.get("difficulty")).intValue();
-                            int time=((Long)m.get("time")).intValue();
+                            int difficulty=((Long) Objects.requireNonNull(m.get("difficulty"))).intValue();
+                            int time=((Long) Objects.requireNonNull(m.get("time"))).intValue();
                             a.add(new MyData(name,difficulty,time));
-                            Log.d("CREANDO OGGETTP","A (i) = "+a.get(i).toString());
                         }
                         a=sortData(a);
                         while(a.size()>RankActivity.DIM_LIST-1){
@@ -66,9 +55,7 @@ public class DAOMyData {
                         while(a.size()<RankActivity.DIM_LIST-1){
                             a.add(new MyData());
                         }
-
                         for(int i = 0; i< Math.min(RankActivity.DIM_LIST,a.size()); i++){
-                            Log.d("IIIIIIIIIIIIIIIIIIIIIIIIIIIIII","I = "+i);
                             LinearLayout ll = ra.findViewById(R.id.rank_layout);
                             ll.addView(addViews(a.get(i)));
                         }
@@ -86,7 +73,7 @@ public class DAOMyData {
         int attuale = 0;
         int searched = 0;
         ArrayList<MyData> a1 = new ArrayList<>();
-        while(a.size()!=0){
+        while(a1.size()!=n_elem){
             if(a.get(attuale).getScore()==scores[searched]){
                 a1.add(a.get(attuale));
                 a.remove(attuale);
@@ -119,7 +106,7 @@ public class DAOMyData {
         views[1].setText(d.getTimeStr());
         views[2].setText(d.getDifficultyStr());
         views[3].setText(d.getName().toUpperCase(Locale.ROOT));
-        for(int i = 0; i< ra.COLUMNS; i++){
+        for(int i = 0; i< RankActivity.COLUMNS; i++){
             views[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
             l.addView(views[i],ra.findViewById(R.id.score).getLayoutParams());
         }

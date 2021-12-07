@@ -7,12 +7,13 @@
     tools:context=".MainActivity"
     android:background="@drawable/backgroud_grass">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/online"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="135dp"
+        android:layout_height="61dp"
         android:layout_marginTop="245dp"
         android:text="@string/online"
+        android:soundEffectsEnabled="false"
         android:background="@drawable/button_scaled_small"
         android:onClick="playOnline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,15 +21,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/offline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="135dp"
+        android:layout_height="61dp"
         android:layout_marginTop="192dp"
         android:layout_marginBottom="198dp"
-        android:text="@string/offline"
-        android:onClick="playOffline"
         android:background="@drawable/button_scaled_small"
+        android:onClick="playOffline"
+        android:soundEffectsEnabled="false"
+        android:text="@string/offline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

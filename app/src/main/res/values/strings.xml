@@ -22,4 +22,5 @@
     <string name="password">password</string>
     <string name="offline">Gioca offline</string>
     <string name="online">Gioca online</string>
+    <string name="logout">logout</string>
 </resources>

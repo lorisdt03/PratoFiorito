@@ -4,10 +4,8 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.ImageButton;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,6 +18,7 @@ public class MyActivity extends AppCompatActivity {
     //imposto che quando il gioco va in pausa la musica si fermi
     @Override
     protected void onPause() {
+
         if(ring.isPlaying()) {
             ring.pause();
         }

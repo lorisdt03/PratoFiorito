@@ -16,4 +16,7 @@ public class Chronometer {
     public double getSeconds() {
         return (end - begin) / 1000.0;
     }
+    public double elapsed(){
+        return System.currentTimeMillis()-begin;
+    }
 }

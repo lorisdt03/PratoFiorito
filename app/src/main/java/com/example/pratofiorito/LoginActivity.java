@@ -2,7 +2,6 @@ package com.example.pratofiorito;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.sql.Connection;
 
 public class LoginActivity extends AppCompatActivity {
     TextView username;
@@ -23,17 +21,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        dao = new DAOUser();
+        dao = new DAOUser(this);
         username = findViewById(R.id.uname);
         password = findViewById(R.id.password);
     }
 
-    @Override
-    public void onBackPressed() {}
-
     public void login(View view) {
         setUser();
-        if(!validUser()){
+        if(invalidUser()){
             return;
         }
         if(dao.userExist(u)){
@@ -57,10 +52,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public void register(View view) {
         setUser();
-        if(!validUser()){
+        if(invalidUser()){
             return;
         }
-
         if(!dao.userExist(u)){
             createUser();
             saveUser();
@@ -70,12 +64,13 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private boolean validUser() {
-        return validName() && validPassword();
+    private boolean invalidUser() {
+        return !validName() || !validPassword();
     }
 
     private boolean validName() {
         if(u.getName().length()>2 && u.getName().length()<13){
+
             username.setError(null);
             return true;
         }

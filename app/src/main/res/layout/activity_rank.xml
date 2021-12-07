@@ -36,7 +36,7 @@
                 android:background="@drawable/border"
                 android:text="@string/score"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="@dimen/table_text"
                 android:textStyle="bold"
                 tools:ignore="TextContrastCheck" />
 
@@ -48,7 +48,7 @@
                 android:background="@drawable/border"
                 android:text="@string/time"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="@dimen/table_text"
                 android:textStyle="bold"
                 tools:ignore="TextContrastCheck" />
 
@@ -60,7 +60,7 @@
                 android:background="@drawable/border"
                 android:text="@string/difficulty"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="@dimen/table_text"
                 android:textStyle="bold"
                 tools:ignore="TextContrastCheck" />
 
@@ -72,7 +72,7 @@
                 android:background="@drawable/border"
                 android:text="@string/name"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="@dimen/table_text"
                 android:textStyle="bold"
                 tools:ignore="TextContrastCheck" />
         </TableRow>

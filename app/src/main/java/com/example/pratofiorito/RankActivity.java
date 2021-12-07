@@ -3,11 +3,9 @@ package com.example.pratofiorito;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -49,7 +47,6 @@ public class RankActivity extends MyActivity {
         if(MainActivity.online){
             DAOMyData dao = new DAOMyData();
             dao.printRanks(this);
-            Log.d("ONCREATE","SCARICATIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
         }else{
             loadRanks();
             printRanks();
@@ -105,7 +102,6 @@ public class RankActivity extends MyActivity {
     //stampo a schermo la classifica
     private void printRanks() {
         for(int i = 0; i< Math.min(DIM_LIST,a.size()); i++){
-            Log.d("IIIIIIIIIIIIIIIIIIIIIIIIIIIIII","I = "+i);
             ll.addView(addViews(a.get(i)));
         }
     }

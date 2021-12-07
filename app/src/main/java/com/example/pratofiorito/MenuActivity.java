@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
-
 import java.io.File;
 
 public class MenuActivity extends MyActivity {
@@ -63,18 +61,17 @@ public class MenuActivity extends MyActivity {
     }
     //se premo indietro termino il programma
     public void onBackPressed() {
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
-        startMain.addCategory(Intent.CATEGORY_HOME);
-        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(startMain);
-        android.os.Process.killProcess(android.os.Process.myPid());
+        Intent i = new Intent(MenuActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 
     public void logOut(View view) {
         File f = new File(getFilesDir()+"user.txt");
-        f.delete();
-        Intent i = new Intent(MenuActivity.this, MainActivity.class);
-        startActivity(i);
-        finish();
+        if(f.delete()){
+            Intent i = new Intent(MenuActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 }

@@ -16,11 +16,12 @@
         <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
         <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/drawable/iconaBomba_background.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/drawable/icona_bomba_background.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/drawable/vuttonshape.xml" value="0.2703125" />
         <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/font/seven_segments.xml" value="0.1" />
         <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/layout/activity_campo.xml" value="0.25" />
-        <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/layout/activity_login.xml" value="0.2" />
-        <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/layout/activity_main.xml" value="0.176" />
-        <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/layout/activity_menu.xml" value="0.13125" />
+        <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/layout/activity_menu.xml" value="0.264" />
         <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/layout/activity_rank.xml" value="0.2" />
         <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/layout/activity_win.xml" value="0.176" />
         <entry key="..\:/Users/mpolo/AndroidStudioProjects/PratoFiorito/app/src/main/res/layout/border.xml" value="0.13125" />

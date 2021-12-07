@@ -3,7 +3,6 @@ package com.example.pratofiorito;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,8 +10,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
-
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -92,7 +89,6 @@ public class WinActivity extends MyActivity {
     private void saveRankOnline() {
         DAOMyData dao = new DAOMyData();
         dao.add(gameData);
-        Log.d("SAVE","FInito di salvare");
     }
 
     public void onClick(View view){

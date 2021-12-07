@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="flag_text">110dp</dimen>
+    <dimen name="flag_text">110sp</dimen>
     <dimen name="button_size">35dp</dimen>
-    <dimen name="text_size">18dp</dimen>
-    <dimen name="big_text">50dp</dimen>
-    <dimen name="medium_text">30dp</dimen>
+    <dimen name="text_size">18sp</dimen>
+    <dimen name="big_text">50sp</dimen>
+    <dimen name="medium_text">30sp</dimen>
+    <dimen name="table_text">20sp</dimen>
 </resources>

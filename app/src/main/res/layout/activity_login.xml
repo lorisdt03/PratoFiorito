@@ -14,14 +14,17 @@
         android:layout_marginBottom="100dp"
         android:background="@color/white"
         android:ems="10"
+        android:hint="@string/password"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        android:hint="@string/password"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
     <EditText
         android:id="@+id/uname"
@@ -31,32 +34,40 @@
         android:layout_marginBottom="131dp"
         android:background="@color/white"
         android:ems="10"
+        android:hint="@string/nome"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:hint="@string/nome"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="135dp"
+        android:layout_height="61dp"
         android:layout_marginBottom="91dp"
         android:text="@string/registrati"
         android:onClick="register"
+        android:soundEffectsEnabled="false"
+        android:background="@drawable/button_scaled_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="135dp"
+        android:layout_height="61dp"
         android:layout_marginBottom="63dp"
+        android:soundEffectsEnabled="false"
+        android:background="@drawable/button_scaled_small"
         android:text="@string/accedi"
         android:onClick="login"
         app:layout_constraintBottom_toTopOf="@+id/register"
