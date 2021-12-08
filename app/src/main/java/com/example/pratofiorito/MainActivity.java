@@ -49,4 +49,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        finishAndRemoveTask();
+    }
 }
