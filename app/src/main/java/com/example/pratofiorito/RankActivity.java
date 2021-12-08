@@ -1,24 +1,22 @@
 package com.example.pratofiorito;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.appcompat.content.res.AppCompatResources;
-
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Locale;
 
 public class RankActivity extends MyActivity {
@@ -28,7 +26,7 @@ public class RankActivity extends MyActivity {
     public static final int COLUMNS = 4;
     private MediaPlayer ring;
     public static int DIM_LIST = 20;
-
+    private Drawable border;
     //salvo il layout che userò per stampare il campo, carico la classifica, la stampo e starto la musica
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +41,7 @@ public class RankActivity extends MyActivity {
         ll = findViewById(R.id.rank_layout);
         ll.setGravity(Gravity.CENTER_HORIZONTAL);
 
+        border = AppCompatResources.getDrawable(this,R.drawable.border);
         a = new ArrayList<>();
         if(MainActivity.online){
             DAOMyData dao = new DAOMyData();
@@ -57,7 +56,7 @@ public class RankActivity extends MyActivity {
 
     //riordino l'arraylist contenente la classifica
     private ArrayList<MyData> sortData(ArrayList<MyData> a) {
-        int n_elem = Math.min(21,a.size());
+        int n_elem = a.size();
         long [] scores= new long[n_elem];
         for(int i=0;i<n_elem;i++){
             scores[i] = a.get(i).getScore();
@@ -66,8 +65,8 @@ public class RankActivity extends MyActivity {
         int attuale = 0;
         int searched = 0;
         ArrayList<MyData> a1 = new ArrayList<>();
-        while(a.size()!=0){
-            if(a.get(attuale).getScore()==scores[searched]){
+        while(a1.size()!=20){
+            if(a.get(attuale).getScore()==scores[(n_elem-1)-searched]){
                 a1.add(a.get(attuale));
                 a.remove(attuale);
                 searched++;
@@ -78,20 +77,22 @@ public class RankActivity extends MyActivity {
             }
 
         }
-        Collections.reverse(a1);
         return a1;
     }
     //carico la classifica dal file chiamato myfile
     private void loadRanks() {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(getFilesDir()+"myfile.txt"));
-            String line;
+        File f = new File(getFilesDir()+"myfile.txt");
+        if(f.exists()){
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(f.getPath()));
+                String line;
                 while((line = br.readLine()) != null){
                     a.add(new MyData(line));
                 }
-            br.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+                br.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         //riempio gli spazzi vuoti con dei MyData default
         for(int i = a.size(); i< DIM_LIST; i++){
@@ -112,14 +113,11 @@ public class RankActivity extends MyActivity {
         l.setGravity(Gravity.CENTER);
 
         TextView [] views = new TextView[COLUMNS];
-        MyImages mi = new MyImages(this);
         for(int i = 0; i< COLUMNS; i++){
-
             views[i] = new TextView(this);
             views[i].setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
-            views[i].setBackground(mi.getBorder());
+            views[i].setBackground(border);
         }
-
         views[0].setText(d.getScoreStr());
         views[1].setText(d.getTimeStr());
         views[2].setText(d.getDifficultyStr());
@@ -132,9 +130,6 @@ public class RankActivity extends MyActivity {
     }
     //fermo la musica e torno al menu principale
     public void goBack(View view) {
-        int id = view.getId();
-        Button b = findViewById(id);
-        b.setBackground(AppCompatResources.getDrawable(this, R.drawable.button_scaled_small_pressed));
         ring.stop();
         Intent i = new Intent(RankActivity.this, MenuActivity.class);
         startActivity(i);

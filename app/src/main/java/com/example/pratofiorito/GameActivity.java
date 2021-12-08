@@ -58,9 +58,6 @@ public class GameActivity extends MyActivity {
     }
     //fermo la musica e torno al menu principale
     public void reset(View view) {
-        int id = view.getId();
-        Button b = findViewById(id);
-        b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_small_pressed));
         ring.stop();
         Intent i = new Intent(GameActivity.this, MenuActivity.class);
         startActivity(i);

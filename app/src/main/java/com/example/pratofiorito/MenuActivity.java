@@ -35,8 +35,6 @@ public class MenuActivity extends MyActivity {
     // imposto la difficolta di conseguenza e inizio l'attività del gioco
     public void onClick(View view) {
         int id = view.getId();
-        Button b = findViewById(id);
-        b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_pressed));
         int difficulty;
         if(id==R.id.b_easy){
             difficulty = 0;
@@ -54,9 +52,6 @@ public class MenuActivity extends MyActivity {
     }
     //se viene premuto il bottone classifica apro la classifica
     public void ranks(View view) {
-        int id = view.getId();
-        Button b = findViewById(id);
-        b.setBackground(AppCompatResources.getDrawable(this,R.drawable.button_scaled_pressed));
         Intent i = new Intent(MenuActivity.this, RankActivity.class);
         startActivity(i);
     }

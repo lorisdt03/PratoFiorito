@@ -8,8 +8,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 
-import androidx.appcompat.content.res.AppCompatResources;
-
 public class MyImages {
 
     private final Drawable[] numbers = new Drawable[9];
@@ -17,7 +15,6 @@ public class MyImages {
     private final Drawable wrongFlag;
     private final Drawable button;
     private final Drawable bomb;
-    private final Drawable border;
     private final int B_SIZE;
 
     //creo tutte le immagini che mi serviranno all'interno del programma
@@ -42,7 +39,6 @@ public class MyImages {
         wrongFlag = scaleDrawable(context, R.drawable.wrong_flag);
         button =  scaleDrawable(context, R.drawable.button);
         bomb = scaleDrawable(context, R.drawable.bomb);
-        border = AppCompatResources.getDrawable(context,R.drawable.border);
     }
     //scalo l'oggeto drawable con id "id" alle dimensioni size*size
     private Drawable scaleDrawable(Context context, int B_id) {
@@ -77,9 +73,5 @@ public class MyImages {
     //restituisco l'immagine di una bandierina crociata
     public Drawable getWrongFlag() {
         return wrongFlag;
-    }
-    //restituisco l'immagine di un bordo
-    public Drawable getBorder() {
-        return border;
     }
 }

@@ -1,15 +1,16 @@
 package com.example.pratofiorito;
 
+import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import androidx.appcompat.content.res.AppCompatResources;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -20,8 +21,11 @@ public class DAOMyData {
     private final FirebaseFirestore db;
     ArrayList<MyData> a;
     RankActivity ra;
+    private Drawable border;
+
     public DAOMyData(){
         db = FirebaseFirestore.getInstance();
+
     }
     public void add(MyData d){
         Map<String,Object> data = new HashMap<>();
@@ -33,6 +37,7 @@ public class DAOMyData {
 
     public void printRanks(RankActivity ra) {
         this.ra=ra;
+        border = AppCompatResources.getDrawable(ra,R.drawable.border);
         a = new ArrayList<>();
         FirebaseFirestore.getInstance()
                 .collection("Records")
@@ -93,12 +98,11 @@ public class DAOMyData {
         l.setGravity(Gravity.CENTER);
 
         TextView[] views = new TextView[RankActivity.COLUMNS];
-        MyImages mi = new MyImages(ra);
         for(int i = 0; i< RankActivity.COLUMNS; i++){
 
             views[i] = new TextView(ra);
             views[i].setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
-            views[i].setBackground(mi.getBorder());
+            views[i].setBackground(border);
         }
 
         views[0].setText(d.getScoreStr());
