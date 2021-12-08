@@ -64,7 +64,7 @@ public class DAOMyData {
     }
     //riordino l'arraylist contenente la classifica
     private ArrayList<MyData> sortData(ArrayList<MyData> a) {
-        int n_elem = Math.min(21,a.size());
+        int n_elem = a.size();
         long [] scores= new long[n_elem];
         for(int i=0;i<n_elem;i++){
             scores[i] = a.get(i).getScore();
@@ -73,8 +73,8 @@ public class DAOMyData {
         int attuale = 0;
         int searched = 0;
         ArrayList<MyData> a1 = new ArrayList<>();
-        while(a1.size()!=n_elem){
-            if(a.get(attuale).getScore()==scores[searched]){
+        while(a1.size()!=20){
+            if(a.get(attuale).getScore()==scores[(n_elem-1)-searched]){
                 a1.add(a.get(attuale));
                 a.remove(attuale);
                 searched++;
@@ -85,7 +85,6 @@ public class DAOMyData {
             }
 
         }
-        Collections.reverse(a1);
         return a1;
     }
     private TableRow addViews(MyData d) {
