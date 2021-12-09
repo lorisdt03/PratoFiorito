@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -32,7 +33,7 @@ public class WinActivity extends MyActivity {
         ImageButton b = findViewById(R.id.audio_win);
         loadAudio(b);
 
-        ring = newRing(this,R.raw.win);
+        ring = newRing(this, R.raw.win);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             long time = extras.getLong("time");
@@ -45,33 +46,33 @@ public class WinActivity extends MyActivity {
         time.setText(gameData.getTimeStr());
         name = findViewById(R.id.nome);
 
-        if(MainActivity.online){
+        if (MainActivity.online) {
             TextView nome = findViewById(R.id.txt_nome);
             nome.setText(onlineName());
             name.setVisibility(View.INVISIBLE);
-        }
-        else{
+        } else {
             name.setOnEditorActionListener(new EnterListener(this));
         }
 
-        filePath = getFilesDir()+"myfile.txt";
+        filePath = getFilesDir() + "myfile.txt";
     }
 
+    //leggo dal file "user.txt" il nome utente che è stato salvato al login
     private String onlineName() {
-        String filePath = getFilesDir()+"user.txt";
+        String filePath = getFilesDir() + "user.txt";
         File my_file;
         try {
             my_file = new File(filePath);
-            if(!my_file.exists()){
-                if(!my_file.createNewFile()){
+            if (!my_file.exists()) {
+                if (!my_file.createNewFile()) {
                     finish();
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            BufferedReader r = new BufferedReader(new FileReader(getFilesDir()+"user.txt"));
+            BufferedReader r = new BufferedReader(new FileReader(getFilesDir() + "user.txt"));
             String s = r.readLine();
             r.close();
             return s;
@@ -87,16 +88,15 @@ public class WinActivity extends MyActivity {
         dao.add(gameData);
     }
 
-    public void onClick(View view){
-        if(MainActivity.online){
+    public void onClick(View view) {
+        if (MainActivity.online) {
             gameData.setName(onlineName());
             saveRankOnline();
-        }else{
+        } else {
             String n = getName(name.getText().toString());
-            if(n.equals("")){
+            if (n.equals("")) {
                 gameData.setName("----------");
-            }
-            else{
+            } else {
                 gameData.setName(n);
             }
             saveRank();
@@ -104,20 +104,19 @@ public class WinActivity extends MyActivity {
         goBack();
     }
 
-    //restituisco il nome di lunghezza massimo 10 e senza spazi in fondo
+    //restituisco il nome di lunghezza massimo 12 e senza spazi in fondo
     private String getName(String n) {
-
-        if(n.charAt(0)==' '){
-            if(n.length()==1){
+        if (n.charAt(0) == ' ') {
+            if (n.length() == 1) {
                 return "";
             }
-            return getName(n.substring(1,n.length()-1));
+            return getName(n.substring(1, n.length() - 1));
         }
-        if(n.charAt(n.length()-1)==' '){
-            return getName(n.substring(0,n.length()-1));
+        if (n.charAt(n.length() - 1) == ' ') {
+            return getName(n.substring(0, n.length() - 1));
         }
-        final String nSubstring = n.substring(0, Math.min(n.length(), 10));
-        if(n.equals(nSubstring))
+        final String nSubstring = n.substring(0, Math.min(n.length(), 12));
+        if (n.equals(nSubstring))
             return n;
         return getName(nSubstring);
     }
@@ -129,17 +128,18 @@ public class WinActivity extends MyActivity {
         startActivity(i);
         finish();
     }
+
     //salvo i dati
-    private void saveRank()  {
+    private void saveRank() {
         File my_file;
         try {
             my_file = new File(filePath);
-            if(!my_file.exists()){
-                if(!my_file.createNewFile()){
+            if (!my_file.exists()) {
+                if (!my_file.createNewFile()) {
                     finish();
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -147,16 +147,17 @@ public class WinActivity extends MyActivity {
         loadRanks(a);
         a.add(gameData);
         a = sortData(a);
-        if(a.size()>RankActivity.DIM_LIST)
-            a.remove(a.size()-1);
+        if (a.size() > RankActivity.DIM_LIST)
+            a.remove(a.size() - 1);
         writeRanks(a);
     }
+
     //carico i dati precedentemente salvati sul file myfile.txt
     private void loadRanks(ArrayList<MyData> a) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(getFilesDir()+"myfile.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(getFilesDir() + "myfile.txt"));
             String line;
-            while((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 a.add(new MyData(line));
             }
             br.close();
@@ -164,25 +165,25 @@ public class WinActivity extends MyActivity {
             e.printStackTrace();
         }
     }
+
     //riordino l'arraylist contenente la classifica
     private ArrayList<MyData> sortData(ArrayList<MyData> a) {
-        int n_elem = Math.min(21,a.size());
-        long [] scores= new long[n_elem];
-        for(int i=0;i<n_elem;i++){
+        int n_elem = Math.min(21, a.size());
+        long[] scores = new long[n_elem];
+        for (int i = 0; i < n_elem; i++) {
             scores[i] = a.get(i).getScore();
         }
         Arrays.sort(scores);
         int attuale = 0;
         int searched = 0;
         ArrayList<MyData> a1 = new ArrayList<>();
-        while(a.size()!=0){
-            if(a.get(attuale).getScore()==scores[searched]){
+        while (a.size() != 0) {
+            if (a.get(attuale).getScore() == scores[searched]) {
                 a1.add(a.get(attuale));
                 a.remove(attuale);
                 searched++;
-                attuale=0;
-            }
-            else{
+                attuale = 0;
+            } else {
                 attuale++;
             }
 
@@ -190,22 +191,24 @@ public class WinActivity extends MyActivity {
         Collections.reverse(a1);
         return a1;
     }
+
     //salvo la classifica sul file myfile.txt
     private void writeRanks(ArrayList<MyData> a) {
-        try{
+        try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-            try{
-                for(int i = 0; i<RankActivity.DIM_LIST; i++){
-                    writer.write(a.get(i).toString()+System.getProperty("line.separator"));
+            try {
+                for (int i = 0; i < RankActivity.DIM_LIST; i++) {
+                    writer.write(a.get(i).toString() + System.getProperty("line.separator"));
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             writer.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     //quando premo il tasto indietro richiamo il metodo goback
     public void onBackPressed() {
         goBack();

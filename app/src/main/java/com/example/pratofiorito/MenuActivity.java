@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatDelegate;
+
 import java.io.File;
 
 public class MenuActivity extends MyActivity {
@@ -17,13 +19,11 @@ public class MenuActivity extends MyActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_menu);
 
-
-
         ImageButton b = findViewById(R.id.audio_main);
         loadAudio(b);
 
-        ring = newRing(this,R.raw.main_menu);
-        if(!MainActivity.online){
+        ring = newRing(this, R.raw.main_menu);
+        if (!MainActivity.online) {
             Button logOut = findViewById(R.id.logOut);
             logOut.setVisibility(View.INVISIBLE);
         }
@@ -34,25 +34,26 @@ public class MenuActivity extends MyActivity {
     public void onClick(View view) {
         int id = view.getId();
         int difficulty;
-        if(id==R.id.b_easy){
+        if (id == R.id.b_easy) {
             difficulty = 0;
-        }else if(id==R.id.b_normal){
+        } else if (id == R.id.b_normal) {
             difficulty = 1;
-        }else {
+        } else {
             difficulty = 2;
         }
         ring.pause();
         Intent i = new Intent(MenuActivity.this, GameActivity.class);
         i.putExtra("diff", difficulty);
         startActivity(i);
-        GameActivity.flag=false;
-
+        GameActivity.flag = false;
     }
+
     //se viene premuto il bottone classifica apro la classifica
     public void ranks(View view) {
         Intent i = new Intent(MenuActivity.this, RankActivity.class);
         startActivity(i);
     }
+
     //se premo indietro termino il programma
     public void onBackPressed() {
         Intent i = new Intent(MenuActivity.this, MainActivity.class);
@@ -60,9 +61,11 @@ public class MenuActivity extends MyActivity {
         finish();
     }
 
+    //quando viene premuto il bottone di logout
+    //elimino il file contenente le credenziali dell'utente e poi passo alla MainActivity
     public void logOut(View view) {
-        File f = new File(getFilesDir()+"user.txt");
-        if(f.delete()){
+        File f = new File(getFilesDir() + "user.txt");
+        if (f.delete()) {
             Intent i = new Intent(MenuActivity.this, MainActivity.class);
             startActivity(i);
             finish();
