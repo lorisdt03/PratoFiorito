@@ -37,7 +37,7 @@ public class DAOUser {
         Chronometer c = new Chronometer();
         c.start();
         while (!t.isComplete()) {
-            if (c.elapsed() > 15000) {
+            if (c.elapsed() > 10000) {
                 Toast.makeText(con, "Impossibile completare l'operazione, controllare la connessione", Toast.LENGTH_SHORT).show();
                 return null;
             }
