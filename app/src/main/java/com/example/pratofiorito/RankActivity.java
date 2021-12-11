@@ -29,6 +29,7 @@ public class RankActivity extends MyActivity {
     private MediaPlayer ring;
     public static int DIM_LIST = 20;
     private Drawable border;
+    private DAOMyData dao;
 
     //salvo il layout che userò per stampare il campo, carico la classifica, la stampo e starto la musica
     @Override
@@ -48,7 +49,7 @@ public class RankActivity extends MyActivity {
         a = new ArrayList<>();
 
         if (MainActivity.online) {
-            DAOMyData dao = new DAOMyData();
+            dao = new DAOMyData();
             dao.printRanks(this);
         } else {
             loadRanks();
@@ -151,8 +152,11 @@ public class RankActivity extends MyActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        removeRanks();
-        printRanks();
+        if(!MainActivity.online){
+            removeRanks();
+            printRanks();
+        }
+
     }
 
     //svuoto la classifica
