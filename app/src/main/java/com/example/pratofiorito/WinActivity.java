@@ -94,11 +94,7 @@ public class WinActivity extends MyActivity {
             saveRankOnline();
         } else {
             String n = getName(name.getText().toString());
-            if (n.equals("")) {
-                gameData.setName("----------");
-            } else {
-                gameData.setName(n);
-            }
+            gameData.setName(n);
             saveRank();
         }
         goBack();
@@ -106,6 +102,8 @@ public class WinActivity extends MyActivity {
 
     //restituisco il nome di lunghezza massimo 12 e senza spazi in fondo
     private String getName(String n) {
+        if(n.length()==0)
+            return "----------";
         if (n.charAt(0) == ' ') {
             if (n.length() == 1) {
                 return "";
