@@ -1,11 +1,13 @@
 package com.example.pratofiorito;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.content.res.AppCompatResources;
 
@@ -25,7 +27,7 @@ public class DAOMyData {
     private ArrayList<MyData> a;
     private RankActivity ra;
     private Drawable border;
-
+    private Context con;
     //mi connetto al database
     public DAOMyData() {
         db = FirebaseFirestore.getInstance();
@@ -70,8 +72,14 @@ public class DAOMyData {
                             LinearLayout ll = ra.findViewById(R.id.rank_layout);
                             ll.addView(addViews(a.get(i)));
                         }
+                    }else{
+                        Toast.makeText(con, "Errore di connessione", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    void setContext(Context con){
+        this.con = con;
     }
 
     //riordino l'arraylist contenente la classifica

@@ -49,6 +49,7 @@ public class RankActivity extends MyActivity {
 
         if (MainActivity.online) {
             DAOMyData dao = new DAOMyData();
+            dao.setContext(this);
             dao.printRanks(this);
         } else {
             loadRanks();

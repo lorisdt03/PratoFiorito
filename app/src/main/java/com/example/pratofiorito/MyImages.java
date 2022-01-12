@@ -8,6 +8,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 
+import androidx.appcompat.content.res.AppCompatResources;
+
 public class MyImages {
 
     private final Drawable[] numbers = new Drawable[9];
